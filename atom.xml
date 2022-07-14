@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>CS幼儿园</title>
+  <title>Jocx的CS幼儿园</title>
   
-  
+  <subtitle>开源 分享 共同进步</subtitle>
   <link href="http://example.com/atom.xml" rel="self"/>
   
   <link href="http://example.com/"/>
