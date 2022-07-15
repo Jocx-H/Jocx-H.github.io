@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://example.com/幼儿园学习笔记/assets/image-20210614144457847-16568116062262.png">
 <meta property="og:image" content="http://example.com/幼儿园学习笔记/assets/image-20210510092346679-16568116062263.png">
 <meta property="article:published_time" content="2022-07-14T11:44:37.000Z">
-<meta property="article:modified_time" content="2022-07-15T07:34:49.174Z">
+<meta property="article:modified_time" content="2022-07-15T07:42:12.078Z">
 <meta property="article:author" content="Jocx">
 <meta property="article:tag" content="数据结构">
 <meta property="article:tag" content="算法">
@@ -222,7 +222,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-15 15:34:49" itemprop="dateModified" datetime="2022-07-15T15:34:49+08:00">2022-07-15</time>
+                <time title="修改时间：2022-07-15 15:42:12" itemprop="dateModified" datetime="2022-07-15T15:42:12+08:00">2022-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,10 +318,10 @@
 <h3 id="渐进函数记号">渐进函数记号</h3>
 <h4 id="渐进紧确界theta">渐进紧确界<span class="math inline">\(\Theta\)</span></h4>
 <p>英文名asymptotically tight bound</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的__集合__： <span class="math display">\[
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>： <span class="math display">\[
 \Theta(g(n))= \{ f(n)| \ \exists正常量c_{1}、c_{2}和n_{0},使得对所有n\geq n_{0},有0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) \}
 \]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进紧确界。</p>
-<p>用__极限__的写法：</p>
+<p>用<strong>极限</strong>的写法：</p>
 <p>因为<span class="math inline">\(g(n)\)</span>是正函数，所以<span class="math inline">\(\exists\ \varepsilon &gt; 0\)</span>，得： <span class="math display">\[
 \begin{aligned}
 0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) &amp;=&gt;c_{1}\leq\frac{f(n)}{g(n)}\leq c_{2}\\
@@ -332,20 +332,20 @@
 <p>即<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}=c\)</span>.</p>
 <h4 id="渐进上界">渐进上界$</h4>
 <p>英文名upper bounds</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的__集合__：</p>
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
 <p><span class="math display">\[
 \Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq f(n)\leq cg(n) \}
-\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进上界，一般我们找的是__最紧上界__。</p>
-<p>用__极限__的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\le c\)</span>.</p>
+\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进上界，一般我们找的是<strong>最紧上界</strong>。</p>
+<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\le c\)</span>.</p>
 <p><strong>上界平时使用的更多</strong></p>
 <p>因为在生产中，我们对最差情况更感兴趣，并且上界比紧确界更好找。</p>
 <h4 id="渐进下界-omega">渐进下界 <span class="math inline">\(\Omega\)</span></h4>
 <p>英文名lower bounds</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的__集合__：</p>
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
 <p><span class="math display">\[
 \Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq cg(n)\leq f(n) \}
-\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进下界，一般我们找的是__最紧下界__。</p>
-<p>用__极限__的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\geq c\)</span>.</p>
+\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进下界，一般我们找的是<strong>最紧下界</strong>。</p>
+<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\geq c\)</span>.</p>
 <h4 id="其他记号">其他记号</h4>
 <p><span class="math inline">\(o\)</span>记号和<span class="math inline">\(\omega\)</span>记号，只是因为数学的完整性才保留它的，实际生产中并没有什么用。</p>
 <hr />
