@@ -1,67 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Home</title>
-    <url>/2022/05/27/home/</url>
-    <content><![CDATA[<h1 id="欢迎来到cs幼儿园">欢迎来到CS幼儿园</h1>
-<p>[toc]</p>
-<p>这里可以查看博主的过来经验</p>
-<p><strong>当然，只有幼儿园级别！</strong>但是如果对你有帮助，博主也会很开心嗷</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">include &lt;iostream&gt;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr />
-<blockquote>
-<p>嘿嘿嘿嘿</p>
-</blockquote>
-<ul>
-<li>测试</li>
-<li>测试</li>
-</ul>
-<ol type="1">
-<li>测试</li>
-</ol>
-<h2 id="测试">测试</h2>
-<h3 id="测试-1">测试</h3>
-<h4 id="测试-2">测试</h4>
-<h5 id="测试-3">测试</h5>
-<p><span class="math display">\[
-a = \rho
-\]</span></p>
-<p><code>啦啦啦</code></p>
-<p><em>是的发生的</em></p>
-<p><del>是发送到发</del></p>
-<p><img src="../images/home/image-20220527142131194.png" /></p>
-<h1 align="center">
-HTML测试
-</h1>
-<p>这是<sub>下标</sub></p>
-<ul class="task-list">
-<li><input type="checkbox" disabled="" checked="" />
-代办</li>
-<li><input type="checkbox" disabled="" />
-啊这</li>
-</ul>
-<table>
-<thead>
-<tr class="header">
-<th>Syntax</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Header</td>
-<td>Title</td>
-</tr>
-<tr class="even">
-<td>Paragraph</td>
-<td>Text</td>
-</tr>
-</tbody>
-</table>
-<p><a href="http://www.example.com/">http://www.example.com</a></p>
-]]></content>
-  </entry>
-  <entry>
     <title>001-算法原理</title>
     <url>/2022/07/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h1 align="center">
