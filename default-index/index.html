@@ -182,355 +182,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Jocx">
-      <meta itemprop="description" content="开源 分享 共同进步">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jocx的CS幼儿园">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">001-算法原理</a>
-        </h2>
-
-        <div class="post-meta">
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-07-15 21:28:34" itemprop="dateModified" datetime="2022-07-15T21:28:34+08:00">2022-07-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构和算法</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 align="center">
-算法的原理和核心思想
-</h1>
-<blockquote>
-<p><strong>内容摘要</strong></p>
-<p>这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-</blockquote>
-<h2 id="算法前言">算法前言</h2>
-<h3 id="算法的定义">算法的定义</h3>
-<p>算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。</p>
-<ul>
-<li>所以算法是能把输入转换成输出的一系列有序步骤。</li>
-</ul>
-<hr>
-<h3 id="学习算法的意义">学习算法的意义</h3>
-<ol type="1">
-<li>算法和计算机硬件一样是一门技术。</li>
-<li>学习一些算法设计与分析的技术，以便我们自己能够看懂算法，分析算法，理解其效率。甚至自行设计算法和证明其正确性。</li>
-</ol>
-<hr>
-<h3 id="循环不变式">循环不变式</h3>
-<p>我的理解：某个序列在循环前中性质不变，循环终止后，通过每一次的迭代，得到我们想要的结果。</p>
-<p>充要条件：</p>
-<p><code>初始化</code>：循环的第一次之前，它为真。</p>
-<p><code>保持</code>：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。</p>
-<p><code>终止</code>：在循环终止时，不变式为我们提供一个有用的性质，该性质有助于证明算法是正确的。</p>
-<ul>
-<li>可以把循环不变式看成算法分析设计的启发式思想。</li>
-</ul>
-<hr>
-<h3 id="评判算法的标准">评判算法的标准</h3>
-<ul>
-<li>正确性</li>
-<li>简易性</li>
-<li>最优性</li>
-<li>完成的工作量</li>
-<li>使用的空间</li>
-</ul>
-<hr>
-<h3 id="伪代码的阅读规则小结">伪代码的阅读规则小结</h3>
-<p><del>为什么伪代码还有阅读规则呀，按理来说伪代码不是想怎么写就怎么写吗？</del></p>
-<ul>
-<li><p>开头描述输入输出。</p></li>
-<li><p>伪代码的语法关键字全部大写。</p></li>
-<li><p>只有局部变量，没有全局变量。</p></li>
-<li><p>每一行伪代码前必须要有序号。</p></li>
-<li><p><code>while</code>后面直接跟条件。后面的语块中跟缩进的<code>do</code>。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WHILE i&gt;0 AND A[i]&gt;key</span><br><span class="line">	DO key &lt;- val</span><br></pre></td></tr></table></figure></li>
-<li><p><code>for</code>：直接跟循环值，且<code>to</code>代表从前到后，<code>downto</code>代表从后到前。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FOR j &lt;- 2 TO A.length</span><br><span class="line">FOR i &lt;- A.length DOWNTO 2</span><br></pre></td></tr></table></figure></li>
-<li><p>多重赋值：<code>i=j=val</code>。</p></li>
-<li><p><code>if</code>后面要跟<code>then</code>语句块。<code>elseif</code>要写在一起。<code>else</code>后面可以不跟<code>then</code>。</p></li>
-</ul>
-<p><strong>规则</strong></p>
-<p><img src="/.com//001-算法原理/20200710114833615.png"></p>
-<h2 id="算法时间复杂度分析渐进分析">算法时间复杂度分析——渐进分析</h2>
-<h3 id="基本概念">基本概念</h3>
-<p>引入时间复杂度，与软件、硬件、接口等通通无关，只与规模有关。并且通过图形验证（课上的证明只有一元变量），当<span class="math inline">\(n\)</span>-&gt;<span class="math inline">\(\infty\)</span>时，最高次一样的图形通通重合。</p>
-<p><strong>特点</strong>：</p>
-<ul>
-<li>基于基本操作数和输入数。因为一个机器的基本操作所花的时间是常数<span class="math inline">\(c\)</span>.</li>
-</ul>
-<p><strong>优点</strong>：</p>
-<ul>
-<li>可以规避除算法之外的其他因素干扰（软件、硬件、接口）</li>
-<li>将运行时间和输入量联系起来</li>
-<li>忽略常数时间</li>
-<li>可以简化描述</li>
-</ul>
-<hr>
-<h3 id="渐进函数记号">渐进函数记号</h3>
-<h4 id="渐进紧确界theta">渐进紧确界<span class="math inline">\(\Theta\)</span></h4>
-<p>英文名asymptotically tight bound</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>： <span class="math display">\[
-\Theta(g(n))= \{ f(n)| \ \exists正常量c_{1}、c_{2}和n_{0},使得对所有n\geq n_{0},有0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) \}
-\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进紧确界。</p>
-<p>用<strong>极限</strong>的写法：</p>
-<p>因为<span class="math inline">\(g(n)\)</span>是正函数，所以<span class="math inline">\(\exists\ \varepsilon &gt; 0\)</span>，得： <span class="math display">\[
-\begin{aligned}
-0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) &amp;=&gt;c_{1}\leq\frac{f(n)}{g(n)}\leq c_{2}\\
-&amp;=&gt;c-\varepsilon \leq \frac{f(n)}{g(n)} \leq c+\varepsilon \\
-&amp;=&gt;|\frac{f(n)}{g(n)}-c|_{(n-&gt;\infty)}\leq\varepsilon
-\end{aligned}
-\]</span></p>
-<p>即<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}=c\)</span>.</p>
-<h4 id="渐进上界">渐进上界$</h4>
-<p>英文名upper bounds</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
-<p><span class="math display">\[
-\Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq f(n)\leq cg(n) \}
-\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进上界，一般我们找的是<strong>最紧上界</strong>。</p>
-<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\le c\)</span>.</p>
-<p><strong>上界平时使用的更多</strong></p>
-<p>因为在生产中，我们对最差情况更感兴趣，并且上界比紧确界更好找。</p>
-<h4 id="渐进下界-omega">渐进下界 <span class="math inline">\(\Omega\)</span></h4>
-<p>英文名lower bounds</p>
-<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
-<p><span class="math display">\[
-\Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq cg(n)\leq f(n) \}
-\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进下界，一般我们找的是<strong>最紧下界</strong>。</p>
-<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\geq c\)</span>.</p>
-<h4 id="其他记号">其他记号</h4>
-<p><span class="math inline">\(o\)</span>记号和<span class="math inline">\(\omega\)</span>记号，只是因为数学的完整性才保留它的，实际生产中并没有什么用。</p>
-<hr>
-<h3 id="定理部分">定理（部分）</h3>
-<ol type="1">
-<li><p>任意<span class="math inline">\(f(n)\)</span>和<span class="math inline">\(g(n)\)</span>，有<span class="math inline">\(f(n)=\Theta(g(n))\)</span>，当且仅当<span class="math inline">\(f(n)=O(g(n))\)</span>且<span class="math inline">\(f(n)=\Omega(g(n))\)</span>.</p></li>
-<li><p>传递性：上界的上界仍是上界，下界的下界仍是下界，紧确的紧确仍是紧确。</p></li>
-<li><p>自反性：自己是自己的上界，自己是自己的下界，自己是自己的紧确。</p></li>
-<li><p>对称性&amp;转置对称性：</p>
-<p><span class="math inline">\(f(n)=\Theta(g(n))当且仅当g(n)=\Theta(f(n))\)</span></p>
-<p><span class="math inline">\(f(n)=O(g(n))当且仅当g(n)=\Omega(fn)\)</span></p></li>
-<li><p>三分性：即<span class="math inline">\(\Theta,O,\Omega\)</span>至少占一种，但是<strong>不是所有的函数都是可渐进比较的</strong>。</p></li>
-</ol>
-<h4 id="渐进关系中的一些等式">渐进关系中的一些等式</h4>
-<ul>
-<li><span class="math inline">\(O(f(n)+g(n))=O(max{f(n),g(n)})\)</span></li>
-<li><span class="math inline">\(\mathrm{O}(f(n))+\mathrm{O}(g(n))=\mathrm{O}(f(n)+g(n))\)</span></li>
-<li><span class="math inline">\(O(f(n)) \cdot O(g(n))=O(f(n) \cdot g(n))\)</span></li>
-<li><span class="math inline">\(O(c \cdot f(n))=O(f(n))\)</span></li>
-</ul>
-<h4 id="常见渐进函数">常见渐进函数</h4>
-<p>从小下大： <span class="math display">\[
-\begin{array}{l}
-O(1) \\
-O(\log (n)) \\
-O(n) \\
-O(n \log (n)) \\
-O\left(n^{2}\right) \\
-O\left(n^{3}\right) \\
-O(n !)
-\end{array}
-\]</span></p>
-<hr>
-<h3 id="求渐进函数的经验方法">求渐进函数的经验方法</h3>
-<p>在工程上</p>
-<ul>
-<li><p>只保留最高级别的项，去掉其他项。去掉最高级别的常数。<strong>注意</strong>，所以的记号都是，包括<span class="math inline">\(\Omega\)</span>，所以求下界时也会出现只剩较大函数的情况，eg：<span class="math inline">\(\Theta\left(n^{1.2}\right)+O\left(n^{3} \log \log (n)\right)+\Omega(\sqrt{n})=\Omega(n^{1.2})\)</span></p></li>
-<li><p>所有基数为<span class="math inline">\(b\)</span>的对数函数都是<span class="math inline">\(log_{b}n= \Theta(ln(n))\)</span>. 但是指数函数确没有相应规则（但实际我们一般也不会将指数函数当成我们的结果）</p></li>
-<li><p>一般都是用极限定义的方法，寻找<span class="math inline">\(n_{0}\)</span>和<span class="math inline">\(c\)</span>.</p></li>
-<li><p>相同渐进方式下的关系(以<span class="math inline">\(O\)</span>为例) <span class="math display">\[
-\begin{aligned}
-&amp; O(f(n))+O(g(n)) = O(max{f(n), g(n)}) \\
-&amp; O(f(n))+O(g(n)) = O(f(n)+g(n)) \\
-&amp; O(f(n)) ·O(g(n)) = O(f(n) ·g(n)) \\
-&amp; O(c·f(n)) = O(f(n))\\
-\end{aligned}
-\]</span></p></li>
-<li><p>不同渐进方式下的关系 <span class="math display">\[
-O(f(n))+\Theta(g(n)) = \Theta(max\{ f(n), g(n) \}))\\
-or\\
-O(f(n))+\Theta(g(n)) = O(max\{ f(n), g(n) \}))
-\]</span> 原因：由_定理1_可知，<span class="math inline">\(\Theta(n)\)</span>已经蕴含<span class="math inline">\(O(n)\)</span>了。<strong>注意</strong>：第一个式子中<span class="math inline">\(\Omega\)</span>也只保留去掉系数的最高项。</p></li>
-<li><p>对于多元变量的渐进分析：因为我们不知道两个变量之间的关系，所以在这个条件下我们不可以和一元变量进行比较。</p></li>
-</ul>
-<p>以上都是工程上的方法，如果要证明<span class="math inline">\(\Theta(f(n))+\Theta(g(n))=\Theta(f(\mathrm{n})+g(n))\)</span>得用数学方法</p>
-<ul>
-<li><img src="../../images/001-算法原理/image-20210614155220907-16568116062241.png" alt="image-20210614155220907" style="zoom:50%;"></li>
-</ul>
-<h3 id="简单代码中的渐进分析">简单代码中的渐进分析</h3>
-<p>几条简单的原则：</p>
-<ol type="1">
-<li><p>代码中的每次一操作都是常数级别的操作，包括开内存和储存（虽然实际情况中可能不是这样）</p></li>
-<li><p>非嵌入的代码块之间的渐进函数应该是相加</p>
-<p>注意：<code>switch</code>和<code>if-else</code>在渐进计算中是一样的，所以<code>switch</code>的渐进函数的计算要看<code>case</code>的个数以及<code>case</code>内部的复杂度（所以基本上也是n）。本质上是<code>+</code></p></li>
-<li><p>嵌入代码块中的代码应该_从内到外_进行展开计算（像<code>for</code>、<code>while</code>之类的）</p>
-<p>实例：对于代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">        sum += (i+j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>它的内层循环为：<span class="math inline">\(\Theta(1+i(1+1))\)</span>：第一个<span class="math inline">\(1\)</span>，初始化<code>j</code>；<span class="math inline">\(i\)</span>，循环<span class="math inline">\(i\)</span>次；<span class="math inline">\((1+1)\)</span>，加一次，赋值一次</p>
-<p>外层循环为：<span class="math inline">\(\Theta(1+(\sum^{n}_{i=0}1+i))\)</span>：第一个<span class="math inline">\(1\)</span>，初始化<code>i</code>；中间比较操作，循环<span class="math inline">\(n\)</span>次；最后一个<span class="math inline">\(i\)</span>，因为内层for已经被我们算出来为<span class="math inline">\(\Theta(i)\)</span>了，所以直接加</p>
-<p>最后算出来是：<span class="math inline">\(\Theta(1+(\sum^{n}_{i=0}1+i))=\Theta(1+n+\sum^{n}_{i=0}i)=\Theta(n^{2})\)</span></p></li>
-<li><p>在代码块中有函数，应该是块中其他内容的渐进函数+被调函数的渐进函数。其中<code>return</code>操作是常数</p></li>
-</ol>
-<h2 id="算法的核心思想分治策略">算法的核心思想——分治策略</h2>
-<h3 id="概述">概述</h3>
-<p><img src="/.com//image-20210614144457847-16568116062262.png" alt="image-20210614144457847" style="zoom:33%;"></p>
-<p>分治的一般步骤：</p>
-<ul>
-<li>分解（Divide）：按步骤将复杂问题分解成小问题，直到问题可以直接求解。</li>
-<li>解决（Conquer）：求解规模足够小的问题，比如当递归排序减小到只有八个数的时候就可以用插入排序来解决了。</li>
-<li>合并（Combine）：逐步将小问题的解合并成原问题的解。</li>
-</ul>
-<hr>
-<h3 id="分治中的渐进分析">分治中的渐进分析</h3>
-<p>在递归中，我们通常可以得到一个关于_最小问题的渐进函数_和原问题的_递推公式（recurrence）_。我们可以用以下方法找出渐进函数：</p>
-<h4 id="递归树法recursion-tree">1.递归树法（Recursion-tree）</h4>
-<p>说明：将递归过程拆分成一个计算式，然后每一个节点表示解决这个层次问题的代价，然后从叶子节点开始一个一个地向上求解。原问题的复杂度可以近似为整个数之和。有些递归式形式较为特殊，最终可以构造成<code>总代价=每层代价*层数</code></p>
-<ul>
-<li>优点：便于理解；便于计算。</li>
-<li>缺点：它并不是一个严格的数学方式，只能是一个具体问题的具体分析。因为它并不是一个完全的展开。<strong>所以在正式场合不单独使用，而是作为猜测方法配合代入法来使用</strong>。</li>
-</ul>
-<blockquote>
-<p>过程： 我们将某个递归式按照树形结构进行展开，然后将每一层加起来。对于递推式无法合并且含有表达式或可以转换成表达式的部分，我们需要将表达式部分拉出来作为该节点的代价，然后将递推部当做下一个深度的节点，以此类推。可以用缩放的方法来考虑上下限。如：</p>
-<p><img src="../../images/001-算法原理/image-20210510092346679-16568116062263.png" alt="image-20210510092346679" style="zoom:50%;"></p>
-<p>说明一共有多少层，每层代价是多少，则总的时间复杂度为<code>层数 * 每层代价</code></p>
-</blockquote>
-<h4 id="主方法也叫展开法">2.主方法（也叫展开法）</h4>
-<p>说明：将递推公式（也叫递归式），按照递推内容展开，通过这个过程，我们找到关于该递归式的一定规律(这个也是必要条件)。主方法可以求解形如此的公式 <span class="math display">\[
-T(n)=aT(n/b)+f(n)
-\]</span> 其中<span class="math inline">\(a\ge 1,b&gt;1,f(n)\)</span>是一个给定的函数。我们的方法就是将其展开后，算一个数列求和。</p>
-<p><strong>一些示例</strong>：</p>
-<ul>
-<li><p><span class="math inline">\(T(n)=aT(n/b)+\Theta(g(n))\)</span>:</p>
-<p>主要是后面的<span class="math inline">\(\Theta(g(n))\)</span>的处理。因为<span class="math inline">\(\Theta\)</span>是紧确界，所以我们可以找一个大于0的常数<span class="math inline">\(c_{1}\)</span>来表示成： <span class="math display">\[
-T(n)=aT(n/b)+c_{1}g(n)
-\]</span> 这样到最后依然是一个紧确界。</p></li>
-<li><p><span class="math inline">\(T(n)=aT(n/b)+O(g(n))\)</span>:</p>
-<p>这次的区别为后面是上界。那同理，我们可以得到这个式子： <span class="math display">\[
-T(n)\le aT(n/b)+c_{1}g(n)
-\]</span> 这样处理到后面依然是上确界。</p></li>
-<li><p><span class="math inline">\(T(n)= \begin{Bmatrix} &amp;\Theta(1),n=1\\ &amp;2T(n/2)+\Theta(n),n&gt;1 \end{Bmatrix}\)</span></p>
-<p>我们考虑如下过程： <span class="math display">\[
-\begin{aligned}
-T(n)&amp;=2T(\frac{n}{2})+cn\\
-&amp;=4T(\frac{n}{4})+2c\frac{n}{2} +cn\\
-&amp;=8T(\frac{n}{8})+4c\frac{n}{4}+2c\frac{n}{2}+cn\\
-&amp;=\ ...\\
-&amp;=2^{k}T(\frac{n}{2^{k}})+c(2^{k-1}\frac{n}{2^{k-1}}+...+2\frac{n}{2}+n)\\
-&amp;直到\frac{n}{2^{k}}=1时，k=log(n)\\
-则原式&amp;=2^{log(n)}T(1)+ckn\\
-&amp;=n\Theta(1)+cnlogn\\
-&amp;=c_{2}n+cnlogn\\
-&amp;=\Theta(c_{1}+cnlogn)\\
-&amp;=\Theta(nlogn)
-\end{aligned}
-\]</span></p>
-<blockquote>
-<p>解释一下是怎么从<span class="math inline">\(2^{log(n)}T(1)+ckn\)</span>变成<span class="math inline">\(n\Theta(1)+cnlogn\)</span>的：</p>
-<ul>
-<li>条件中就给出<span class="math inline">\(T(1)=\Theta(1)\)</span>了</li>
-<li>当<span class="math inline">\(k=log(n)\)</span>时，<span class="math inline">\(2^k=2^{log(n)}=n\)</span>，下面的式子正式建立在<span class="math inline">\(k=log(n)\)</span>的基础上的。</li>
-</ul>
-</blockquote></li>
-<li><p><span class="math inline">\(\mathrm{T}(n)=\left\{\begin{array}{cc}1 &amp; n=1 \\ \mathrm{~T}\left(\frac{n-1}{2}\right)+1 &amp; n&gt;1\end{array}\right.\)</span> 这样直接展开或许有点困难，我们将<span class="math inline">\(n\)</span>赋予特殊的值，令<span class="math inline">\(n=2^{k}-1\)</span>，这样就可以解下去了，最后算出结果是<span class="math inline">\(\mathrm{T}(n)=\Theta(\log (n))\)</span></p></li>
-</ul>
-<h4 id="代入法substitution">3.代入法（substitution）</h4>
-<p>是一种数学归纳法：</p>
-<ol type="1">
-<li>猜测解的形式（可用递归树法和展开法辅助猜测）</li>
-<li>用数学归纳法求解出解中的常数，并且证明解是可行的。</li>
-</ol>
-<p>首先根据<span class="math inline">\(O,\Omega,\Theta\)</span>来猜测<span class="math inline">\(T(n)\le f(n)\)</span>，然后将<span class="math inline">\(f(n/b)\)</span>带入递推式<span class="math inline">\(T(n)=aT(n/b)+h(n)\)</span>，通过一系列变换推出<span class="math inline">\(T(n)\le f(n)\)</span>这一式子，该式子形式上必须严格与猜测的式子相同。如果要证明<span class="math inline">\(\Theta\)</span>的话，那<span class="math inline">\(O,\Omega\)</span>都需要证明。</p>
-<p><strong>一些示例</strong>：</p>
-<blockquote>
-<p><span class="math inline">\(T(n)=4T(n/2)+\Theta(n)\)</span></p>
-<p>我们假设<span class="math inline">\(O(n^2)=T(n)\)</span>，那么在带入递推式的时候，因为<span class="math inline">\(T(n)\)</span>后面多了加了个<span class="math inline">\(\Theta(n)\)</span>，最后在式子中会变成"<span class="math inline">\(=dn\)</span>"。而我们的主旨是得到与<span class="math inline">\(n^2\)</span>严格相同的结果，所以需要约掉<span class="math inline">\(dn\)</span>。所以我们在代入递归式之前，可以假设<span class="math inline">\(T(n)\le c_1n^2-c_2n\)</span>（这个式子也是符合<span class="math inline">\(O(n^2)\)</span>的），然后得到： <span class="math display">\[
-\begin{aligned}
-T(n)&amp;\le4(c_1(\frac{n}{2})^2-c_2(\frac{n}{2}))+dn\\
-&amp;=c_1n^2+(d-2c_2)n
-\end{aligned}
-\]</span> 对于这个式子，只要令<span class="math inline">\(d-2c_2=-c_2=&gt;c_2=d\)</span>就可以是式子严格按照猜测的形式了。</p>
-</blockquote>
-<p><strong>一些技巧</strong>：</p>
-<blockquote>
-<p>我们在最后寻找猜测式子中的边界条件时，不一定是从<span class="math inline">\(n=1\)</span>开始满足的，只要<span class="math inline">\(n\ge n_0\)</span>就可以了</p>
-</blockquote>
-<h2 id="参考文献">参考文献</h2>
-<section class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1" role="doc-endnote"><p>Data Structure and Algorithm Analysis in C++ Fourth Edition Mark Allen Weiss 著（《数据结构与算法分析——C++语言描述（第四版）》，冯瞬玺译）<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Introduction to Algorithms Third Edtion, Thomas H.Cormen 等人著（《算法导论（第3版）》，殷键平 徐云等人译）<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>https://blog.csdn.net/liz_Lee/article/details/107247658<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
-
-      
-    </div>
-    <!-- 文章结束表示语-->
-    <div>
-      
-    </div>
-
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/27/home/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -662,7 +313,7 @@ HTML测试
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/15/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -676,7 +327,356 @@ HTML测试
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/07/15/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">101-数据的存储结构</a>
+            <a href="/2022/07/14/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">001-算法原理</a>
+        </h2>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-07-15 21:31:50" itemprop="dateModified" datetime="2022-07-15T21:31:50+08:00">2022-07-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构和算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 align="center">
+算法的原理和核心思想
+</h1>
+<blockquote>
+<p><strong>内容摘要</strong></p>
+<p>这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
+</blockquote>
+<h2 id="算法前言">算法前言</h2>
+<h3 id="算法的定义">算法的定义</h3>
+<p>算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。</p>
+<ul>
+<li>所以算法是能把输入转换成输出的一系列有序步骤。</li>
+</ul>
+<hr>
+<h3 id="学习算法的意义">学习算法的意义</h3>
+<ol type="1">
+<li>算法和计算机硬件一样是一门技术。</li>
+<li>学习一些算法设计与分析的技术，以便我们自己能够看懂算法，分析算法，理解其效率。甚至自行设计算法和证明其正确性。</li>
+</ol>
+<hr>
+<h3 id="循环不变式">循环不变式</h3>
+<p>我的理解：某个序列在循环前中性质不变，循环终止后，通过每一次的迭代，得到我们想要的结果。</p>
+<p>充要条件：</p>
+<p><code>初始化</code>：循环的第一次之前，它为真。</p>
+<p><code>保持</code>：如果循环的某次迭代之前它为真，那么下次迭代之前它仍为真。</p>
+<p><code>终止</code>：在循环终止时，不变式为我们提供一个有用的性质，该性质有助于证明算法是正确的。</p>
+<ul>
+<li>可以把循环不变式看成算法分析设计的启发式思想。</li>
+</ul>
+<hr>
+<h3 id="评判算法的标准">评判算法的标准</h3>
+<ul>
+<li>正确性</li>
+<li>简易性</li>
+<li>最优性</li>
+<li>完成的工作量</li>
+<li>使用的空间</li>
+</ul>
+<hr>
+<h3 id="伪代码的阅读规则小结">伪代码的阅读规则小结</h3>
+<p><del>为什么伪代码还有阅读规则呀，按理来说伪代码不是想怎么写就怎么写吗？</del></p>
+<ul>
+<li><p>开头描述输入输出。</p></li>
+<li><p>伪代码的语法关键字全部大写。</p></li>
+<li><p>只有局部变量，没有全局变量。</p></li>
+<li><p>每一行伪代码前必须要有序号。</p></li>
+<li><p><code>while</code>后面直接跟条件。后面的语块中跟缩进的<code>do</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WHILE i&gt;0 AND A[i]&gt;key</span><br><span class="line">	DO key &lt;- val</span><br></pre></td></tr></table></figure></li>
+<li><p><code>for</code>：直接跟循环值，且<code>to</code>代表从前到后，<code>downto</code>代表从后到前。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FOR j &lt;- 2 TO A.length</span><br><span class="line">FOR i &lt;- A.length DOWNTO 2</span><br></pre></td></tr></table></figure></li>
+<li><p>多重赋值：<code>i=j=val</code>。</p></li>
+<li><p><code>if</code>后面要跟<code>then</code>语句块。<code>elseif</code>要写在一起。<code>else</code>后面可以不跟<code>then</code>。</p></li>
+</ul>
+<p><strong>规则</strong></p>
+<p><img src="/.com//数据结构和算法/001-算法原理/20200710114833615.png"></p>
+<h2 id="算法时间复杂度分析渐进分析">算法时间复杂度分析——渐进分析</h2>
+<h3 id="基本概念">基本概念</h3>
+<p>引入时间复杂度，与软件、硬件、接口等通通无关，只与规模有关。并且通过图形验证（课上的证明只有一元变量），当<span class="math inline">\(n\)</span>-&gt;<span class="math inline">\(\infty\)</span>时，最高次一样的图形通通重合。</p>
+<p><strong>特点</strong>：</p>
+<ul>
+<li>基于基本操作数和输入数。因为一个机器的基本操作所花的时间是常数<span class="math inline">\(c\)</span>.</li>
+</ul>
+<p><strong>优点</strong>：</p>
+<ul>
+<li>可以规避除算法之外的其他因素干扰（软件、硬件、接口）</li>
+<li>将运行时间和输入量联系起来</li>
+<li>忽略常数时间</li>
+<li>可以简化描述</li>
+</ul>
+<hr>
+<h3 id="渐进函数记号">渐进函数记号</h3>
+<h4 id="渐进紧确界theta">渐进紧确界<span class="math inline">\(\Theta\)</span></h4>
+<p>英文名asymptotically tight bound</p>
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>： <span class="math display">\[
+\Theta(g(n))= \{ f(n)| \ \exists正常量c_{1}、c_{2}和n_{0},使得对所有n\geq n_{0},有0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) \}
+\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进紧确界。</p>
+<p>用<strong>极限</strong>的写法：</p>
+<p>因为<span class="math inline">\(g(n)\)</span>是正函数，所以<span class="math inline">\(\exists\ \varepsilon &gt; 0\)</span>，得： <span class="math display">\[
+\begin{aligned}
+0\leq c_{1}g(n)\leq f(n)\leq c_{2}g(n) &amp;=&gt;c_{1}\leq\frac{f(n)}{g(n)}\leq c_{2}\\
+&amp;=&gt;c-\varepsilon \leq \frac{f(n)}{g(n)} \leq c+\varepsilon \\
+&amp;=&gt;|\frac{f(n)}{g(n)}-c|_{(n-&gt;\infty)}\leq\varepsilon
+\end{aligned}
+\]</span></p>
+<p>即<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}=c\)</span>.</p>
+<h4 id="渐进上界">渐进上界$</h4>
+<p>英文名upper bounds</p>
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
+<p><span class="math display">\[
+\Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq f(n)\leq cg(n) \}
+\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进上界，一般我们找的是<strong>最紧上界</strong>。</p>
+<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\le c\)</span>.</p>
+<p><strong>上界平时使用的更多</strong></p>
+<p>因为在生产中，我们对最差情况更感兴趣，并且上界比紧确界更好找。</p>
+<h4 id="渐进下界-omega">渐进下界 <span class="math inline">\(\Omega\)</span></h4>
+<p>英文名lower bounds</p>
+<p>对给定的一个函数<span class="math inline">\(g(n)\)</span>，用<span class="math inline">\(\Theta(g(n))\)</span>来表示以下函数的<strong>集合</strong>：</p>
+<p><span class="math display">\[
+\Theta(g(n))= \{ f(n)| \ \exists正常量c和n_{0},使得对所有n\geq n_{0},有0\leq cg(n)\leq f(n) \}
+\]</span> <span class="math inline">\(g(n)\)</span>就被称为<span class="math inline">\(f(n)\)</span>的一个渐进下界，一般我们找的是<strong>最紧下界</strong>。</p>
+<p>用<strong>极限</strong>的写法为：<span class="math inline">\(\lim_{n-&gt;\infty}\frac{f(n)}{g(n)}\geq c\)</span>.</p>
+<h4 id="其他记号">其他记号</h4>
+<p><span class="math inline">\(o\)</span>记号和<span class="math inline">\(\omega\)</span>记号，只是因为数学的完整性才保留它的，实际生产中并没有什么用。</p>
+<hr>
+<h3 id="定理部分">定理（部分）</h3>
+<ol type="1">
+<li><p>任意<span class="math inline">\(f(n)\)</span>和<span class="math inline">\(g(n)\)</span>，有<span class="math inline">\(f(n)=\Theta(g(n))\)</span>，当且仅当<span class="math inline">\(f(n)=O(g(n))\)</span>且<span class="math inline">\(f(n)=\Omega(g(n))\)</span>.</p></li>
+<li><p>传递性：上界的上界仍是上界，下界的下界仍是下界，紧确的紧确仍是紧确。</p></li>
+<li><p>自反性：自己是自己的上界，自己是自己的下界，自己是自己的紧确。</p></li>
+<li><p>对称性&amp;转置对称性：</p>
+<p><span class="math inline">\(f(n)=\Theta(g(n))当且仅当g(n)=\Theta(f(n))\)</span></p>
+<p><span class="math inline">\(f(n)=O(g(n))当且仅当g(n)=\Omega(fn)\)</span></p></li>
+<li><p>三分性：即<span class="math inline">\(\Theta,O,\Omega\)</span>至少占一种，但是<strong>不是所有的函数都是可渐进比较的</strong>。</p></li>
+</ol>
+<h4 id="渐进关系中的一些等式">渐进关系中的一些等式</h4>
+<ul>
+<li><span class="math inline">\(O(f(n)+g(n))=O(max{f(n),g(n)})\)</span></li>
+<li><span class="math inline">\(\mathrm{O}(f(n))+\mathrm{O}(g(n))=\mathrm{O}(f(n)+g(n))\)</span></li>
+<li><span class="math inline">\(O(f(n)) \cdot O(g(n))=O(f(n) \cdot g(n))\)</span></li>
+<li><span class="math inline">\(O(c \cdot f(n))=O(f(n))\)</span></li>
+</ul>
+<h4 id="常见渐进函数">常见渐进函数</h4>
+<p>从小下大： <span class="math display">\[
+\begin{array}{l}
+O(1) \\
+O(\log (n)) \\
+O(n) \\
+O(n \log (n)) \\
+O\left(n^{2}\right) \\
+O\left(n^{3}\right) \\
+O(n !)
+\end{array}
+\]</span></p>
+<hr>
+<h3 id="求渐进函数的经验方法">求渐进函数的经验方法</h3>
+<p>在工程上</p>
+<ul>
+<li><p>只保留最高级别的项，去掉其他项。去掉最高级别的常数。<strong>注意</strong>，所以的记号都是，包括<span class="math inline">\(\Omega\)</span>，所以求下界时也会出现只剩较大函数的情况，eg：<span class="math inline">\(\Theta\left(n^{1.2}\right)+O\left(n^{3} \log \log (n)\right)+\Omega(\sqrt{n})=\Omega(n^{1.2})\)</span></p></li>
+<li><p>所有基数为<span class="math inline">\(b\)</span>的对数函数都是<span class="math inline">\(log_{b}n= \Theta(ln(n))\)</span>. 但是指数函数确没有相应规则（但实际我们一般也不会将指数函数当成我们的结果）</p></li>
+<li><p>一般都是用极限定义的方法，寻找<span class="math inline">\(n_{0}\)</span>和<span class="math inline">\(c\)</span>.</p></li>
+<li><p>相同渐进方式下的关系(以<span class="math inline">\(O\)</span>为例) <span class="math display">\[
+\begin{aligned}
+&amp; O(f(n))+O(g(n)) = O(max{f(n), g(n)}) \\
+&amp; O(f(n))+O(g(n)) = O(f(n)+g(n)) \\
+&amp; O(f(n)) ·O(g(n)) = O(f(n) ·g(n)) \\
+&amp; O(c·f(n)) = O(f(n))\\
+\end{aligned}
+\]</span></p></li>
+<li><p>不同渐进方式下的关系 <span class="math display">\[
+O(f(n))+\Theta(g(n)) = \Theta(max\{ f(n), g(n) \}))\\
+or\\
+O(f(n))+\Theta(g(n)) = O(max\{ f(n), g(n) \}))
+\]</span> 原因：由_定理1_可知，<span class="math inline">\(\Theta(n)\)</span>已经蕴含<span class="math inline">\(O(n)\)</span>了。<strong>注意</strong>：第一个式子中<span class="math inline">\(\Omega\)</span>也只保留去掉系数的最高项。</p></li>
+<li><p>对于多元变量的渐进分析：因为我们不知道两个变量之间的关系，所以在这个条件下我们不可以和一元变量进行比较。</p></li>
+</ul>
+<p>以上都是工程上的方法，如果要证明<span class="math inline">\(\Theta(f(n))+\Theta(g(n))=\Theta(f(\mathrm{n})+g(n))\)</span>得用数学方法</p>
+<ul>
+<li><img src="/.com//数据结构和算法/001-算法原理/image-20210614155220907-16568116062241.png" alt="image-20210614155220907" style="zoom:50%;"></li>
+</ul>
+<h3 id="简单代码中的渐进分析">简单代码中的渐进分析</h3>
+<p>几条简单的原则：</p>
+<ol type="1">
+<li><p>代码中的每次一操作都是常数级别的操作，包括开内存和储存（虽然实际情况中可能不是这样）</p></li>
+<li><p>非嵌入的代码块之间的渐进函数应该是相加</p>
+<p>注意：<code>switch</code>和<code>if-else</code>在渐进计算中是一样的，所以<code>switch</code>的渐进函数的计算要看<code>case</code>的个数以及<code>case</code>内部的复杂度（所以基本上也是n）。本质上是<code>+</code></p></li>
+<li><p>嵌入代码块中的代码应该_从内到外_进行展开计算（像<code>for</code>、<code>while</code>之类的）</p>
+<p>实例：对于代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> n;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">        sum += (i+j);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的内层循环为：<span class="math inline">\(\Theta(1+i(1+1))\)</span>：第一个<span class="math inline">\(1\)</span>，初始化<code>j</code>；<span class="math inline">\(i\)</span>，循环<span class="math inline">\(i\)</span>次；<span class="math inline">\((1+1)\)</span>，加一次，赋值一次</p>
+<p>外层循环为：<span class="math inline">\(\Theta(1+(\sum^{n}_{i=0}1+i))\)</span>：第一个<span class="math inline">\(1\)</span>，初始化<code>i</code>；中间比较操作，循环<span class="math inline">\(n\)</span>次；最后一个<span class="math inline">\(i\)</span>，因为内层for已经被我们算出来为<span class="math inline">\(\Theta(i)\)</span>了，所以直接加</p>
+<p>最后算出来是：<span class="math inline">\(\Theta(1+(\sum^{n}_{i=0}1+i))=\Theta(1+n+\sum^{n}_{i=0}i)=\Theta(n^{2})\)</span></p></li>
+<li><p>在代码块中有函数，应该是块中其他内容的渐进函数+被调函数的渐进函数。其中<code>return</code>操作是常数</p></li>
+</ol>
+<h2 id="算法的核心思想分治策略">算法的核心思想——分治策略</h2>
+<h3 id="概述">概述</h3>
+<p><img src="/.com//数据结构和算法/001-算法原理/image-20210614144457847-16568116062262.png" alt="image-20210614144457847" style="zoom:33%;"></p>
+<p>分治的一般步骤：</p>
+<ul>
+<li>分解（Divide）：按步骤将复杂问题分解成小问题，直到问题可以直接求解。</li>
+<li>解决（Conquer）：求解规模足够小的问题，比如当递归排序减小到只有八个数的时候就可以用插入排序来解决了。</li>
+<li>合并（Combine）：逐步将小问题的解合并成原问题的解。</li>
+</ul>
+<hr>
+<h3 id="分治中的渐进分析">分治中的渐进分析</h3>
+<p>在递归中，我们通常可以得到一个关于_最小问题的渐进函数_和原问题的_递推公式（recurrence）_。我们可以用以下方法找出渐进函数：</p>
+<h4 id="递归树法recursion-tree">1.递归树法（Recursion-tree）</h4>
+<p>说明：将递归过程拆分成一个计算式，然后每一个节点表示解决这个层次问题的代价，然后从叶子节点开始一个一个地向上求解。原问题的复杂度可以近似为整个数之和。有些递归式形式较为特殊，最终可以构造成<code>总代价=每层代价*层数</code></p>
+<ul>
+<li>优点：便于理解；便于计算。</li>
+<li>缺点：它并不是一个严格的数学方式，只能是一个具体问题的具体分析。因为它并不是一个完全的展开。<strong>所以在正式场合不单独使用，而是作为猜测方法配合代入法来使用</strong>。</li>
+</ul>
+<blockquote>
+<p>过程： 我们将某个递归式按照树形结构进行展开，然后将每一层加起来。对于递推式无法合并且含有表达式或可以转换成表达式的部分，我们需要将表达式部分拉出来作为该节点的代价，然后将递推部当做下一个深度的节点，以此类推。可以用缩放的方法来考虑上下限。如：</p>
+<p><img src="/.com//数据结构和算法/001-算法原理/image-20210510092346679-16568116062263.png" alt="image-20210510092346679" style="zoom:50%;"></p>
+<p>说明一共有多少层，每层代价是多少，则总的时间复杂度为<code>层数 * 每层代价</code></p>
+</blockquote>
+<h4 id="主方法也叫展开法">2.主方法（也叫展开法）</h4>
+<p>说明：将递推公式（也叫递归式），按照递推内容展开，通过这个过程，我们找到关于该递归式的一定规律(这个也是必要条件)。主方法可以求解形如此的公式 <span class="math display">\[
+T(n)=aT(n/b)+f(n)
+\]</span> 其中<span class="math inline">\(a\ge 1,b&gt;1,f(n)\)</span>是一个给定的函数。我们的方法就是将其展开后，算一个数列求和。</p>
+<p><strong>一些示例</strong>：</p>
+<ul>
+<li><p><span class="math inline">\(T(n)=aT(n/b)+\Theta(g(n))\)</span>:</p>
+<p>主要是后面的<span class="math inline">\(\Theta(g(n))\)</span>的处理。因为<span class="math inline">\(\Theta\)</span>是紧确界，所以我们可以找一个大于0的常数<span class="math inline">\(c_{1}\)</span>来表示成： <span class="math display">\[
+T(n)=aT(n/b)+c_{1}g(n)
+\]</span> 这样到最后依然是一个紧确界。</p></li>
+<li><p><span class="math inline">\(T(n)=aT(n/b)+O(g(n))\)</span>:</p>
+<p>这次的区别为后面是上界。那同理，我们可以得到这个式子： <span class="math display">\[
+T(n)\le aT(n/b)+c_{1}g(n)
+\]</span> 这样处理到后面依然是上确界。</p></li>
+<li><p><span class="math inline">\(T(n)= \begin{Bmatrix} &amp;\Theta(1),n=1\\ &amp;2T(n/2)+\Theta(n),n&gt;1 \end{Bmatrix}\)</span></p>
+<p>我们考虑如下过程： <span class="math display">\[
+\begin{aligned}
+T(n)&amp;=2T(\frac{n}{2})+cn\\
+&amp;=4T(\frac{n}{4})+2c\frac{n}{2} +cn\\
+&amp;=8T(\frac{n}{8})+4c\frac{n}{4}+2c\frac{n}{2}+cn\\
+&amp;=\ ...\\
+&amp;=2^{k}T(\frac{n}{2^{k}})+c(2^{k-1}\frac{n}{2^{k-1}}+...+2\frac{n}{2}+n)\\
+&amp;直到\frac{n}{2^{k}}=1时，k=log(n)\\
+则原式&amp;=2^{log(n)}T(1)+ckn\\
+&amp;=n\Theta(1)+cnlogn\\
+&amp;=c_{2}n+cnlogn\\
+&amp;=\Theta(c_{1}+cnlogn)\\
+&amp;=\Theta(nlogn)
+\end{aligned}
+\]</span></p>
+<blockquote>
+<p>解释一下是怎么从<span class="math inline">\(2^{log(n)}T(1)+ckn\)</span>变成<span class="math inline">\(n\Theta(1)+cnlogn\)</span>的：</p>
+<ul>
+<li>条件中就给出<span class="math inline">\(T(1)=\Theta(1)\)</span>了</li>
+<li>当<span class="math inline">\(k=log(n)\)</span>时，<span class="math inline">\(2^k=2^{log(n)}=n\)</span>，下面的式子正式建立在<span class="math inline">\(k=log(n)\)</span>的基础上的。</li>
+</ul>
+</blockquote></li>
+<li><p><span class="math inline">\(\mathrm{T}(n)=\left\{\begin{array}{cc}1 &amp; n=1 \\ \mathrm{~T}\left(\frac{n-1}{2}\right)+1 &amp; n&gt;1\end{array}\right.\)</span> 这样直接展开或许有点困难，我们将<span class="math inline">\(n\)</span>赋予特殊的值，令<span class="math inline">\(n=2^{k}-1\)</span>，这样就可以解下去了，最后算出结果是<span class="math inline">\(\mathrm{T}(n)=\Theta(\log (n))\)</span></p></li>
+</ul>
+<h4 id="代入法substitution">3.代入法（substitution）</h4>
+<p>是一种数学归纳法：</p>
+<ol type="1">
+<li>猜测解的形式（可用递归树法和展开法辅助猜测）</li>
+<li>用数学归纳法求解出解中的常数，并且证明解是可行的。</li>
+</ol>
+<p>首先根据<span class="math inline">\(O,\Omega,\Theta\)</span>来猜测<span class="math inline">\(T(n)\le f(n)\)</span>，然后将<span class="math inline">\(f(n/b)\)</span>带入递推式<span class="math inline">\(T(n)=aT(n/b)+h(n)\)</span>，通过一系列变换推出<span class="math inline">\(T(n)\le f(n)\)</span>这一式子，该式子形式上必须严格与猜测的式子相同。如果要证明<span class="math inline">\(\Theta\)</span>的话，那<span class="math inline">\(O,\Omega\)</span>都需要证明。</p>
+<p><strong>一些示例</strong>：</p>
+<blockquote>
+<p><span class="math inline">\(T(n)=4T(n/2)+\Theta(n)\)</span></p>
+<p>我们假设<span class="math inline">\(O(n^2)=T(n)\)</span>，那么在带入递推式的时候，因为<span class="math inline">\(T(n)\)</span>后面多了加了个<span class="math inline">\(\Theta(n)\)</span>，最后在式子中会变成"<span class="math inline">\(=dn\)</span>"。而我们的主旨是得到与<span class="math inline">\(n^2\)</span>严格相同的结果，所以需要约掉<span class="math inline">\(dn\)</span>。所以我们在代入递归式之前，可以假设<span class="math inline">\(T(n)\le c_1n^2-c_2n\)</span>（这个式子也是符合<span class="math inline">\(O(n^2)\)</span>的），然后得到： <span class="math display">\[
+\begin{aligned}
+T(n)&amp;\le4(c_1(\frac{n}{2})^2-c_2(\frac{n}{2}))+dn\\
+&amp;=c_1n^2+(d-2c_2)n
+\end{aligned}
+\]</span> 对于这个式子，只要令<span class="math inline">\(d-2c_2=-c_2=&gt;c_2=d\)</span>就可以是式子严格按照猜测的形式了。</p>
+</blockquote>
+<p><strong>一些技巧</strong>：</p>
+<blockquote>
+<p>我们在最后寻找猜测式子中的边界条件时，不一定是从<span class="math inline">\(n=1\)</span>开始满足的，只要<span class="math inline">\(n\ge n_0\)</span>就可以了</p>
+</blockquote>
+<h2 id="参考文献">参考文献</h2>
+<section class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1" role="doc-endnote"><p>Data Structure and Algorithm Analysis in C++ Fourth Edition Mark Allen Weiss 著（《数据结构与算法分析——C++语言描述（第四版）》，冯瞬玺译）<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2" role="doc-endnote"><p>Introduction to Algorithms Third Edtion, Thomas H.Cormen 等人著（《算法导论（第3版）》，殷键平 徐云等人译）<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3" role="doc-endnote"><p>https://blog.csdn.net/liz_Lee/article/details/107247658<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+      
+    </div>
+    <!-- 文章结束表示语-->
+    <div>
+      
+    </div>
+
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/07/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jocx">
+      <meta itemprop="description" content="开源 分享 共同进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jocx的CS幼儿园">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/07/15/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" class="post-title-link" itemprop="url">101-数据的存储结构</a>
         </h2>
 
         <div class="post-meta">
