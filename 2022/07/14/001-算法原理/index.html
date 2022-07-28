@@ -20,12 +20,42 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="算法的原理和核心思想   内容摘要 这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。123  算法前言 算法的定义 算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。  所以算法是能把输入转换成输出的一系列有序步骤。   学习算法的意义  算法">
+  <meta name="description" content="算法的原理和核心思想
+ 
+ 
+ 内容摘要
+ 这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。123
+ 
+ 算法前言
+ 算法的定义
+ 算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。
+ 
+ 所以算法是能把输入转换成输出的一系列有序步骤。
+ 
+ 
+ 学习算法的意义
+ 
+ 算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="001-算法原理">
 <meta property="og:url" content="http://example.com/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Jocx的CS幼儿园">
-<meta property="og:description" content="算法的原理和核心思想   内容摘要 这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。123  算法前言 算法的定义 算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。  所以算法是能把输入转换成输出的一系列有序步骤。   学习算法的意义  算法">
+<meta property="og:description" content="算法的原理和核心思想
+ 
+ 
+ 内容摘要
+ 这篇博文主要讲述了算法的定义、核心思想和使用范围，介绍了渐进分析法用以分析算法的时间复杂度。同时举例说明了三种常用计算时间复杂度的方法。123
+ 
+ 算法前言
+ 算法的定义
+ 算法是任何能把一系列输入变成一系列输出的良定义（well-defined）计算程序。
+ 
+ 所以算法是能把输入转换成输出的一系列有序步骤。
+ 
+ 
+ 学习算法的意义
+ 
+ 算法">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/.com//20200710114833615.png">
 <meta property="og:image" content="http://example.com/.com//image-20210614155220907-16568116062241.png">
@@ -305,7 +335,7 @@
 <li><p><code>if</code>后面要跟<code>then</code>语句块。<code>elseif</code>要写在一起。<code>else</code>后面可以不跟<code>then</code>。</p></li>
 </ul>
 <p><strong>规则</strong></p>
-<p><img src="/.com//20200710114833615.png"></p>
+<p><img src="/images/001-算法原理/20200710114833615.png"></p>
 <h2 id="算法时间复杂度分析渐进分析">算法时间复杂度分析——渐进分析</h2>
 <h3 id="基本概念">基本概念</h3>
 <p>引入时间复杂度，与软件、硬件、接口等通通无关，只与规模有关。并且通过图形验证（课上的证明只有一元变量），当<span class="math inline">\(n\)</span>-&gt;<span class="math inline">\(\infty\)</span>时，最高次一样的图形通通重合。</p>
