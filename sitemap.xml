@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://example.com/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
     
     <lastmod>2022-07-16</lastmod>
     
@@ -11,7 +11,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/07/15/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/2022/07/15/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/</loc>
     
     <lastmod>2022-07-15</lastmod>
     
@@ -20,7 +20,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/index.html</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/index.html</loc>
     
     <lastmod>2022-07-15</lastmod>
     
@@ -29,7 +29,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/tags/index.html</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/tags/index.html</loc>
     
     <lastmod>2022-07-14</lastmod>
     
@@ -38,7 +38,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/categories/index.html</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/categories/index.html</loc>
     
     <lastmod>2022-07-14</lastmod>
     
@@ -47,7 +47,7 @@
   </url>
   
   <url>
-    <loc>http://example.com/2022/05/27/home/</loc>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/2022/05/27/home/</loc>
     
     <lastmod>2022-07-11</lastmod>
     
@@ -57,23 +57,23 @@
   
 
   <url>
-    <loc>http://example.com/</loc>
-    <lastmod>2022-07-16</lastmod>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io</loc>
+    <lastmod>2022-08-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   
   <url>
-    <loc>http://example.com/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
-    <lastmod>2022-07-16</lastmod>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2022-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://example.com/tags/%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-07-16</lastmod>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2022-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -81,8 +81,8 @@
 
   
   <url>
-    <loc>http://example.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2022-07-16</lastmod>
+    <loc>https://github.com/Jocx-H/Jocx-H.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2022-08-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
