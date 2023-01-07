@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jocx-h.top/2023/01/07/dockeruse/</loc>
+    <loc>https://jocx-h.top/index.html</loc>
+    
+    <lastmod>2023-01-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://jocx-h.top/2023/01/07/101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2023-01-07</lastmod>
     
@@ -30,24 +39,6 @@
   
   <url>
     <loc>https://jocx-h.top/2022/07/14/001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/</loc>
-    
-    <lastmod>2023-01-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jocx-h.top/index.html</loc>
-    
-    <lastmod>2023-01-07</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://jocx-h.top/2022/05/27/home/</loc>
     
     <lastmod>2023-01-07</lastmod>
     
