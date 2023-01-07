@@ -81,18 +81,16 @@
     <link href="https://jocx-h.top/2022/05/27/home/"/>
     <id>https://jocx-h.top/2022/05/27/home/</id>
     <published>2022-05-27T04:01:29.000Z</published>
-    <updated>2022-07-11T09:04:44.488Z</updated>
+    <updated>2023-01-07T06:26:03.747Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="欢迎来到cs幼儿园">欢迎来到CS幼儿园</h1><p>[toc]</p><p>这里可以查看博主的过来经验</p><p><strong>当然，只有幼儿园级别！</strong>但是如果对你有帮助，博主也会很开心嗷</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">include &lt;iostream&gt;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello world!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><blockquote><p>嘿嘿嘿嘿</p></blockquote><ul><li>测试</li><li>测试</li></ul><ol type="1"><li>测试</li></ol><h2 id="测试">测试</h2><h3 id="测试-1">测试</h3><h4 id="测试-2">测试</h4><h5 id="测试-3">测试</h5><p><span class="math display">\[a = \rho\]</span></p><p><code>啦啦啦</code></p><p><em>是的发生的</em></p><p><del>是发送到发</del></p><p><img src="../images/home/image-20220527142131194.png"></p><h1 align="center">HTML测试</h1><p>这是<sub>下标</sub></p><ul class="task-list"><li><input type="checkbox" disabled checked>代办</li><li><input type="checkbox" disabled>啊这</li></ul><table><thead><tr class="header"><th>Syntax</th><th>Description</th></tr></thead><tbody><tr class="odd"><td>Header</td><td>Title</td></tr><tr class="even"><td>Paragraph</td><td>Text</td></tr></tbody></table><p><a href="http://www.example.com/">http://www.example.com</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="欢迎来到jox个人博客的主页">欢迎来到Jox个人博客的主页</h1><p>这里可以查看博主的过来经验<strong>当然，只有幼儿园级别！</strong>但是如果对你有帮助，博主也会很开心嗷。</p><h3 id="编程语言学习">编程语言学习</h3><h3 id="计算机基础">计算机基础</h3><ul><li><a href="http://jocx-h.top/categories/数据结构和算法/">数据结构和算法</a></li></ul><h3 id="互联网工具使用">互联网工具使用</h3><h3 id="数学学习和理解">数学学习和理解</h3><h3 id="人工智能">人工智能</h3><h3 id="烹饪">烹饪</h3>]]></content>
     
     
       
       
-    <summary type="html">&lt;h1 id=&quot;欢迎来到cs幼儿园&quot;&gt;欢迎来到CS幼儿园&lt;/h1&gt;
-&lt;p&gt;[toc]&lt;/p&gt;
-&lt;p&gt;这里可以查看博主的过来经验&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;当然，只有幼儿园级别！&lt;/strong&gt;但是如果对你有帮助，博主也会很开心嗷&lt;/p&gt;
-&lt;figure class=</summary>
+    <summary type="html">&lt;h1 id=&quot;欢迎来到jox个人博客的主页&quot;&gt;欢迎来到Jox个人博客的主页&lt;/h1&gt;
+&lt;p&gt;这里可以查看博主的过来经验&lt;strong&gt;当然，只有幼儿园级别！&lt;/strong&gt;但是如果对你有帮助，博主也会很开心嗷。&lt;/p&gt;
+&lt;h3 id=&quot;编程语言学习&quot;&gt;编程语言学习&lt;/h3</summary>
       
     
     
