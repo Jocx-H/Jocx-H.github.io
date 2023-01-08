@@ -1,6 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【实践】Docker配置MongoDB</title>
+    <url>/2023/01/08/2201Docker%E9%85%8D%E7%BD%AEMongoDB/</url>
+    <content><![CDATA[<h1 align="center">
+Docker配置MongoDB
+</h1>
+<blockquote>
+<p><strong>内容摘要</strong></p>
+<p>本文详细地描述了在CentOS 8上用docker部署MongoDB，并用studio-3T远程连接数据库的方法。并且根据可能会产生的问题提出了详细的解决方案。</p>
+</blockquote>
+<h2 id="前言">前言</h2>
+<ol type="1">
+<li>首先需要有Docker。如果没有，可以查阅<a href="http://jocx-h.top/2023/01/07/2001-Docker安装/">Dokcer安装</a></li>
+<li>读者需要学会docker的基本使用，包括挂载数据卷和配置虚拟网桥。如果没有，可以查阅<a href="http://jocx-h.top/2023/01/07/2101-Docker的理解与入门使用/">Docker的理解与入门使用</a></li>
+</ol>
+<h3 id="系统环境">系统环境</h3>
+<p>腾讯云4核4G轻量级服务器；CentOS 8</p>
+<h2 id="正文">正文</h2>
+<ol type="1">
+<li><p>进入<a href="https://hub.docker.com/">Docker Hub</a>注册dockerhub的账号并寻找mongo镜像，注册好后直接在搜索框里面搜索关键词<code>mongo</code>，获取命令</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker pull mongo</span><br></pre></td></tr></table></figure></li>
+<li><p>利用1中的命令拉取镜像可以用以下命令查看拉取的镜像。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+<li><p>从镜像文档里面可知，该镜像的映射端口是27017，配置文件在<code>/data/configdb</code>，数据库文件在<code>/data/db</code>里面。两个都是在容器里。</p>
+<blockquote>
+<p>这些文件实际上是需要存在于容器的对应目录下面的，所以如果在宿主机目录下每页找到，不用急，继续往下做就行。</p>
+</blockquote>
+<p>需要配置挂载卷：</p>
+<ol type="1">
+<li><p>配置挂在卷的目录：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建目录</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/conf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/logs</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/db</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置权限</span></span><br><span class="line">chmod -R a+rwx /var/lib/mongo/</span><br></pre></td></tr></table></figure></li>
+<li><p>创建配置文件并配置：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vi /var/lib/mongo/conf/mongod.conf</span></span><br></pre></td></tr></table></figure>
+<p>配置文件如下： <a href="https://docs.mongodb.com/manual/reference/configuration-options/">mongodb配置详解（英文）</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">storage:</span><br><span class="line">  dbPath: /data/mongo/db</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">indexBuildRetry: <span class="literal">true</span>  <span class="comment"># 如果mongoDB版本高于或等于4.4就不需要这行</span></span></span><br><span class="line">  journal:</span><br><span class="line">    enabled: true</span><br><span class="line">    commitIntervalMs: 100</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">where</span> to write logging data.</span></span><br><span class="line">systemLog:</span><br><span class="line">  path: /data/mongo/logs/mongod.log</span><br><span class="line">  logAppend: false</span><br><span class="line">  logRotate: rename</span><br><span class="line">  destination: file</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">network interfaces</span></span><br><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 你的IP</span><br><span class="line">  bindIpAll: true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意： 配置远程连接（如studio-3T）的话，需要将这里的<code>bindIP</code>配置成0.0.0.0；</li>
+</ul></li>
+</ol></li>
+<li><p>带认证地启动mongo镜像 虽然<code>/data</code>下面没有任何文件，但是在启动方面并没有出现问题</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker run --name mongo \</span><br><span class="line">    --restart=unless-stopped \</span><br><span class="line">    -v /var/lib/mongo:/data/mongo \</span><br><span class="line">    -p 27017:27017 \</span><br><span class="line">    -d \</span><br><span class="line">    --network datanet \</span><br><span class="line">	--network-alias mongo mongo \</span><br><span class="line">    --config /data/mongo/conf/mongod.conf \</span><br><span class="line">    --auth</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这一步我们配置了一个 容器名为<code>mongo</code>； 将宿主机的<code>/var/lib/mongo</code>目录挂载到容器<code>/data/mongo</code>； 将宿主机的<code>27017</code>端口映射到容器<code>27017</code>端口； 连接到虚拟网桥<code>datanet</code>且虚拟网桥中名称为<code>mongo</code>； 的MongoDB容器。</li>
+</ul>
+<p>启动后可以用以下命令查看结果：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker ps -a  # 查看所有容器状态，包括是否在运行</span><br><span class="line"></span><br><span class="line">docker logs 容器ID  # 查看日志，以便于找到问题</span><br></pre></td></tr></table></figure></li>
+<li><p>创建管理员账号和普通员工账号 登录mongo数据库</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">docker exec -it mongo mongo admin</span><br></pre></td></tr></table></figure>
+<p>创建管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">db.createUser(&#123; user: &#x27;nameOfAdmin&#x27;, pwd: &#x27;pwdOfAdmin&#x27;, roles: [ &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125; ] &#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的<code>nameOfAdmin</code>和<code>pwdOfAdmin</code>填写成你自己的想设置的管理员用户名和密码即可。</li>
+</ul>
+<p>登录数据库以便于授权</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">db.auth(&quot;nameOfAdmin&quot;,&quot;pwdOfAdmin&quot;);</span><br></pre></td></tr></table></figure>
+<p>切换普通数据库（没有回自动创建），创建普通用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">use test</span><br><span class="line"></span><br><span class="line">db.createUser(&#123; user: &#x27;test&#x27;, pwd: &#x27;123456&#x27;, roles: [&#123; role: &quot;readWrite&quot;, db: &quot;test&quot; &#125;] &#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>尝试在外界用studio-3T连接docker。（需要提前下载studio-3T软件（Robo-3T已经和studio-3T合并，全部免费了）） 主要要在云服务器安全组策略里面添加对应端口，比如这里开的就是27017.</p></li>
+</ol>
+<h2 id="读者可能遇到的问题">读者可能遇到的问题</h2>
+<h3 id="镜像下载速度太慢">镜像下载速度太慢</h3>
+<p>因为docker hub的服务器在国外，所以可以通过获取阿里云的docker加速器解决。</p>
+<ol type="1">
+<li><p>进入<a href="https://cr.console.aliyun.com/cn-chengdu/instances">阿里云镜像仓库</a>获取镜像加速器；创建个人/企业实例后进入<code>镜像工具</code>-<code>镜像加速器</code>，复制加速器地址</p></li>
+<li><p>进入<code>/etc/docker/daemon.json</code>添加地址（如果没有则在该目录下新建一个配置文件）</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">文件内容</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://xxxxxxx.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">保存并关闭</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的url是你自己的url</li>
+</ul>
+<p>重启docker并使其生效</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>配置完成，可以快速下载docker镜像了。</p></li>
+</ol>
+<h3 id="外部studio-3t无法连接">外部studio-3T无法连接</h3>
+<p><strong>问题描述</strong></p>
+<p>无法在外界（）通过studio-3T连接上云服务器docker环境下的mongodb。但在云服务器本身上面可以</p>
+<p>以下方法可以检验是否是数据库的问题：</p>
+<blockquote>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入mongo中的admin数据库</span></span><br><span class="line">docker exec -it mongo mongo admin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">用账号密码登录admin数据库，结果会返回1（正常）</span></span><br><span class="line">db.auth(&#x27;hrxtest&#x27;,&#x27;hrx@123&#x27;)</span><br></pre></td></tr></table></figure>
+<p>等命令进入admin数据库，<strong>如果返回结果正常就不是数据库的问题，而是网络问题</strong>。</p>
+</blockquote>
+<p><strong>解决方案</strong></p>
+<p>连接超时还有可能是<strong>安全组没有开或者配置文件里的<code>bindIp</code>没有设置成0.0.0.0</strong>，但是我没有控制变量试验过。可以检查一下。</p>
+<ul>
+<li>可以参考网友的这篇文章：<a href="https://blog.csdn.net/weixin_42410658/article/details/104370634">MongoDB远程连接</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>Docker</category>
+      </categories>
+  </entry>
+  <entry>
     <title>【基础】Docker的理解与入门使用</title>
     <url>/2023/01/07/2101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 align="center">

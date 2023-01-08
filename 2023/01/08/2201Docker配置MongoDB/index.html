@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jocx-h.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Docker配置MongoDB   内容摘要 本文详细地描述了在CentOS 8上用docker部署MongoDB，并用studio-3T远程连接数据库的方法。并且根据可能会产生的问题提出了详细的解决方案。  前言  首先需要有Docker。如果没有，可以查阅Dokcer安装 读者需要学会docker的基本使用，包括挂载数据卷和配置虚拟网桥。如果没有，可以查阅Docker的理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【实践】Docker配置MongoDB">
+<meta property="og:url" content="https://jocx-h.top/2023/01/08/2201Docker%E9%85%8D%E7%BD%AEMongoDB/index.html">
+<meta property="og:site_name" content="Jocx&#39;s blog">
+<meta property="og:description" content="Docker配置MongoDB   内容摘要 本文详细地描述了在CentOS 8上用docker部署MongoDB，并用studio-3T远程连接数据库的方法。并且根据可能会产生的问题提出了详细的解决方案。  前言  首先需要有Docker。如果没有，可以查阅Dokcer安装 读者需要学会docker的基本使用，包括挂载数据卷和配置虚拟网桥。如果没有，可以查阅Docker的理">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-08T08:09:57.000Z">
+<meta property="article:modified_time" content="2023-01-08T08:12:12.582Z">
+<meta property="article:author" content="Jocx">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jocx-h.top/2023/01/08/2201Docker%E9%85%8D%E7%BD%AEMongoDB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【实践】Docker配置MongoDB | Jocx's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Jocx's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jocx's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">来了就先看看吧，没准有用呢？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jocx-h.top/2023/01/08/2201Docker%E9%85%8D%E7%BD%AEMongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jocx">
+      <meta itemprop="description" content="开源 分享 共同进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jocx's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【实践】Docker配置MongoDB
+        </h1>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-08 16:12:12" itemprop="dateModified" datetime="2023-01-08T16:12:12+08:00">2023-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Docker/" itemprop="url" rel="index"><span itemprop="name">Docker</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 align="center">
+Docker配置MongoDB
+</h1>
+<blockquote>
+<p><strong>内容摘要</strong></p>
+<p>本文详细地描述了在CentOS 8上用docker部署MongoDB，并用studio-3T远程连接数据库的方法。并且根据可能会产生的问题提出了详细的解决方案。</p>
+</blockquote>
+<h2 id="前言">前言</h2>
+<ol type="1">
+<li>首先需要有Docker。如果没有，可以查阅<a href="http://jocx-h.top/2023/01/07/2001-Docker安装/">Dokcer安装</a></li>
+<li>读者需要学会docker的基本使用，包括挂载数据卷和配置虚拟网桥。如果没有，可以查阅<a href="http://jocx-h.top/2023/01/07/2101-Docker的理解与入门使用/">Docker的理解与入门使用</a></li>
+</ol>
+<h3 id="系统环境">系统环境</h3>
+<p>腾讯云4核4G轻量级服务器；CentOS 8</p>
+<h2 id="正文">正文</h2>
+<ol type="1">
+<li><p>进入<a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>注册dockerhub的账号并寻找mongo镜像，注册好后直接在搜索框里面搜索关键词<code>mongo</code>，获取命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mongo</span><br></pre></td></tr></table></figure></li>
+<li><p>利用1中的命令拉取镜像可以用以下命令查看拉取的镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></li>
+<li><p>从镜像文档里面可知，该镜像的映射端口是27017，配置文件在<code>/data/configdb</code>，数据库文件在<code>/data/db</code>里面。两个都是在容器里。</p>
+<blockquote>
+<p>这些文件实际上是需要存在于容器的对应目录下面的，所以如果在宿主机目录下每页找到，不用急，继续往下做就行。</p>
+</blockquote>
+<p>需要配置挂载卷：</p>
+<ol type="1">
+<li><p>配置挂在卷的目录：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建目录</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/conf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/logs</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p /var/lib/mongo/db</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">配置权限</span></span><br><span class="line">chmod -R a+rwx /var/lib/mongo/</span><br></pre></td></tr></table></figure></li>
+<li><p>创建配置文件并配置：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">vi /var/lib/mongo/conf/mongod.conf</span></span><br></pre></td></tr></table></figure>
+<p>配置文件如下： <a target="_blank" rel="noopener" href="https://docs.mongodb.com/manual/reference/configuration-options/">mongodb配置详解（英文）</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">storage:</span><br><span class="line">  dbPath: /data/mongo/db</span><br><span class="line"><span class="meta prompt_">  # </span><span class="language-bash">indexBuildRetry: <span class="literal">true</span>  <span class="comment"># 如果mongoDB版本高于或等于4.4就不需要这行</span></span></span><br><span class="line">  journal:</span><br><span class="line">    enabled: true</span><br><span class="line">    commitIntervalMs: 100</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">where</span> to write logging data.</span></span><br><span class="line">systemLog:</span><br><span class="line">  path: /data/mongo/logs/mongod.log</span><br><span class="line">  logAppend: false</span><br><span class="line">  logRotate: rename</span><br><span class="line">  destination: file</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">network interfaces</span></span><br><span class="line">net:</span><br><span class="line">  port: 27017</span><br><span class="line">  bindIp: 你的IP</span><br><span class="line">  bindIpAll: true</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意： 配置远程连接（如studio-3T）的话，需要将这里的<code>bindIP</code>配置成0.0.0.0；</li>
+</ul></li>
+</ol></li>
+<li><p>带认证地启动mongo镜像 虽然<code>/data</code>下面没有任何文件，但是在启动方面并没有出现问题</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mongo \</span><br><span class="line">    --restart=unless-stopped \</span><br><span class="line">    -v /var/lib/mongo:/data/mongo \</span><br><span class="line">    -p 27017:27017 \</span><br><span class="line">    -d \</span><br><span class="line">    --network datanet \</span><br><span class="line">	--network-alias mongo mongo \</span><br><span class="line">    --config /data/mongo/conf/mongod.conf \</span><br><span class="line">    --auth</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这一步我们配置了一个 容器名为<code>mongo</code>； 将宿主机的<code>/var/lib/mongo</code>目录挂载到容器<code>/data/mongo</code>； 将宿主机的<code>27017</code>端口映射到容器<code>27017</code>端口； 连接到虚拟网桥<code>datanet</code>且虚拟网桥中名称为<code>mongo</code>； 的MongoDB容器。</li>
+</ul>
+<p>启动后可以用以下命令查看结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a  # 查看所有容器状态，包括是否在运行</span><br><span class="line"></span><br><span class="line">docker logs 容器ID  # 查看日志，以便于找到问题</span><br></pre></td></tr></table></figure></li>
+<li><p>创建管理员账号和普通员工账号 登录mongo数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mongo mongo admin</span><br></pre></td></tr></table></figure>
+<p>创建管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.createUser(&#123; user: &#x27;nameOfAdmin&#x27;, pwd: &#x27;pwdOfAdmin&#x27;, roles: [ &#123; role: &quot;userAdminAnyDatabase&quot;, db: &quot;admin&quot; &#125; ] &#125;);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的<code>nameOfAdmin</code>和<code>pwdOfAdmin</code>填写成你自己的想设置的管理员用户名和密码即可。</li>
+</ul>
+<p>登录数据库以便于授权</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.auth(&quot;nameOfAdmin&quot;,&quot;pwdOfAdmin&quot;);</span><br></pre></td></tr></table></figure>
+<p>切换普通数据库（没有回自动创建），创建普通用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use test</span><br><span class="line"></span><br><span class="line">db.createUser(&#123; user: &#x27;test&#x27;, pwd: &#x27;123456&#x27;, roles: [&#123; role: &quot;readWrite&quot;, db: &quot;test&quot; &#125;] &#125;);</span><br></pre></td></tr></table></figure></li>
+<li><p>尝试在外界用studio-3T连接docker。（需要提前下载studio-3T软件（Robo-3T已经和studio-3T合并，全部免费了）） 主要要在云服务器安全组策略里面添加对应端口，比如这里开的就是27017.</p></li>
+</ol>
+<h2 id="读者可能遇到的问题">读者可能遇到的问题</h2>
+<h3 id="镜像下载速度太慢">镜像下载速度太慢</h3>
+<p>因为docker hub的服务器在国外，所以可以通过获取阿里云的docker加速器解决。</p>
+<ol type="1">
+<li><p>进入<a target="_blank" rel="noopener" href="https://cr.console.aliyun.com/cn-chengdu/instances">阿里云镜像仓库</a>获取镜像加速器；创建个人/企业实例后进入<code>镜像工具</code>-<code>镜像加速器</code>，复制加速器地址</p></li>
+<li><p>进入<code>/etc/docker/daemon.json</code>添加地址（如果没有则在该目录下新建一个配置文件）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/docker/daemon.json</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">文件内容</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;: [&quot;https://xxxxxxx.aliyuncs.com&quot;]</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">保存并关闭</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>这里的url是你自己的url</li>
+</ul>
+<p>重启docker并使其生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart docker</span><br></pre></td></tr></table></figure>
+<p>配置完成，可以快速下载docker镜像了。</p></li>
+</ol>
+<h3 id="外部studio-3t无法连接">外部studio-3T无法连接</h3>
+<p><strong>问题描述</strong></p>
+<p>无法在外界（）通过studio-3T连接上云服务器docker环境下的mongodb。但在云服务器本身上面可以</p>
+<p>以下方法可以检验是否是数据库的问题：</p>
+<blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">进入mongo中的admin数据库</span></span><br><span class="line">docker exec -it mongo mongo admin</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">用账号密码登录admin数据库，结果会返回1（正常）</span></span><br><span class="line">db.auth(&#x27;hrxtest&#x27;,&#x27;hrx@123&#x27;)</span><br></pre></td></tr></table></figure>
+<p>等命令进入admin数据库，<strong>如果返回结果正常就不是数据库的问题，而是网络问题</strong>。</p>
+</blockquote>
+<p><strong>解决方案</strong></p>
+<p>连接超时还有可能是<strong>安全组没有开或者配置文件里的<code>bindIp</code>没有设置成0.0.0.0</strong>，但是我没有控制变量试验过。可以检查一下。</p>
+<ul>
+<li>可以参考网友的这篇文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42410658/article/details/104370634">MongoDB远程连接</a></li>
+</ul>
+
+    </div>
+    <!-- 文章结束表示语-->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/07/2001-Docker%E5%AE%89%E8%A3%85/" rel="prev" title="【安装】Docker安装">
+      <i class="fa fa-chevron-left"></i> 【安装】Docker安装
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">
+Docker配置MongoDB
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.1.</span> <span class="nav-text">系统环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-number">1.2.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E8%80%85%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.3.</span> <span class="nav-text">读者可能遇到的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6%E5%A4%AA%E6%85%A2"><span class="nav-number">1.3.1.</span> <span class="nav-text">镜像下载速度太慢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%83%A8studio-3t%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.3.2.</span> <span class="nav-text">外部studio-3T无法连接</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jocx"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jocx</p>
+  <div class="site-description" itemprop="description">开源 分享 共同进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jocx-H" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jocx-H" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jocx</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
