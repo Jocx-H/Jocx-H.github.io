@@ -20,19 +20,19 @@
     var CONFIG = {"hostname":"jocx-h.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="Docker的基础使用   内容摘要 本文用通俗易懂的语言描述了初学者应该如何理解Docker镜像和Docker容器。并且给出了一些Docker的基本操作方法。  如何理解Docker docker有点像一个虚拟机，但是又没有虚拟机那么庞大。它像一个沙箱一样，把内部环境和外部环境隔开，无论外部环境怎么变，使用者都只需关注内部的环境。这就相当于一个小世界，你在小世界里面创造发明，无">
+  <meta name="description" content="Docker的基础使用   内容摘要 本文用通俗易懂的语言描述了初学者应该如何理解Docker镜像和Docker容器。并且给出了一些Docker的基本操作方法。 初学者可以通过该文章快速入门Docker。  如何理解Docker docker有点像一个虚拟机，但是又没有虚拟机那么庞大。它像一个沙箱一样，把内部环境和外部环境隔开，无论外部环境怎么变，使用者都只需关注内部的环境。这">
 <meta property="og:type" content="article">
-<meta property="og:title" content="101-Docker的理解与入门使用">
-<meta property="og:url" content="https://jocx-h.top/2023/01/07/101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/index.html">
-<meta property="og:site_name" content="Jocx的CS幼儿园">
-<meta property="og:description" content="Docker的基础使用   内容摘要 本文用通俗易懂的语言描述了初学者应该如何理解Docker镜像和Docker容器。并且给出了一些Docker的基本操作方法。  如何理解Docker docker有点像一个虚拟机，但是又没有虚拟机那么庞大。它像一个沙箱一样，把内部环境和外部环境隔开，无论外部环境怎么变，使用者都只需关注内部的环境。这就相当于一个小世界，你在小世界里面创造发明，无">
+<meta property="og:title" content="【基础】Docker的理解与入门使用">
+<meta property="og:url" content="https://jocx-h.top/2023/01/07/2101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Jocx&#39;s blog">
+<meta property="og:description" content="Docker的基础使用   内容摘要 本文用通俗易懂的语言描述了初学者应该如何理解Docker镜像和Docker容器。并且给出了一些Docker的基本操作方法。 初学者可以通过该文章快速入门Docker。  如何理解Docker docker有点像一个虚拟机，但是又没有虚拟机那么庞大。它像一个沙箱一样，把内部环境和外部环境隔开，无论外部环境怎么变，使用者都只需关注内部的环境。这">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-01-07T09:39:58.000Z">
-<meta property="article:modified_time" content="2023-01-08T06:17:26.526Z">
+<meta property="article:modified_time" content="2023-01-08T07:34:22.949Z">
 <meta property="article:author" content="Jocx">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://jocx-h.top/2023/01/07/101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
+<link rel="canonical" href="https://jocx-h.top/2023/01/07/2101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
 
 
 <script id="page-configurations">
@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>101-Docker的理解与入门使用 | Jocx的CS幼儿园</title>
+  <title>【基础】Docker的理解与入门使用 | Jocx's blog</title>
   
 
 
@@ -76,7 +76,7 @@
   </style>
 </noscript>
 
-<link rel="alternate" href="/atom.xml" title="Jocx的CS幼儿园" type="application/atom+xml">
+<link rel="alternate" href="/atom.xml" title="Jocx's blog" type="application/atom+xml">
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage">
@@ -97,7 +97,7 @@
 
     <a href="/" class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">Jocx的CS幼儿园</h1>
+      <h1 class="site-title">Jocx's blog</h1>
       <span class="logo-line-after"><i></i></span>
     </a>
       <p class="site-subtitle" itemprop="description">来了就先看看吧，没准有用呢？</p>
@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jocx-h.top/2023/01/07/101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://jocx-h.top/2023/01/07/2101-Docker%E7%9A%84%E7%90%86%E8%A7%A3%E4%B8%8E%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -194,11 +194,11 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jocx的CS幼儿园">
+      <meta itemprop="name" content="Jocx's blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          101-Docker的理解与入门使用
+          【基础】Docker的理解与入门使用
         </h1>
 
         <div class="post-meta">
@@ -207,7 +207,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-01-08 14:17:26" itemprop="dateModified" datetime="2023-01-08T14:17:26+08:00">2023-01-08</time>
+                <time title="修改时间：2023-01-08 15:34:22" itemprop="dateModified" datetime="2023-01-08T15:34:22+08:00">2023-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -225,14 +225,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -250,6 +250,7 @@ Docker的基础使用
 <blockquote>
 <p><strong>内容摘要</strong></p>
 <p>本文用通俗易懂的语言描述了初学者应该如何理解Docker镜像和Docker容器。并且给出了一些Docker的基本操作方法。</p>
+<p>初学者可以通过该文章快速入门Docker。</p>
 </blockquote>
 <h2 id="如何理解docker">如何理解Docker</h2>
 <p>docker有点像一个虚拟机，但是又没有虚拟机那么庞大。它像一个沙箱一样，把内部环境和外部环境隔开，<strong>无论外部环境怎么变，使用者都只需关注<em>内部的环境</em></strong>。这就相当于一个小世界，你在小世界里面创造发明，无论外部环境是开发环境、测试环境还是生产环境，你都无需关心，它们对于你的项目来说都是透明的。</p>
@@ -279,7 +280,7 @@ Docker的基础使用
 </ul>
 <p>配置完全的docker容器，就像一台寄宿在主机上的微型服务器，有着运行项目的所有功能。</p>
 <h2 id="docker基本操作">Docker基本操作</h2>
-<p>首先你得有docker，可以通过我的上一篇博客来<a href>查看docker安装步骤</a>。</p>
+<p>首先你得有docker，可以通过我的上一篇博客来<a href="http://jocx-h.top/2023/01/07/001-Docker安装/">查看docker安装步骤</a>。</p>
 <h3 id="镜像">镜像</h3>
 <h4 id="获得镜像">获得镜像</h4>
 <p>我们可以从<a target="_blank" rel="noopener" href="https://hub.docker.com/">Docker Hub</a>上获取别人制作好的镜像直接使用，也可以用Dockerfile文件自行编译（这部分不在此展开）获得镜像。</p>
@@ -325,31 +326,85 @@ Docker的基础使用
 <li>这就是就是一个只要CPU和内存资源的容器了。</li>
 </ul>
 <p>其完整命令为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS]  [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
-<p>其参数为：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+<p>其部分参数如下。这里只给出我使用过的参数，有了这些参数设置，初学者应该能比较好地跑通并将项目部署到docker容器里面了：</p>
+<ul>
+<li>注：大写的是为某一类，而不是某个实际参数。</li>
+</ul>
 <table>
+<thead>
+<tr class="header">
+<th>参数</th>
+<th>含义</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td></td>
-<td></td>
+<td>--name NAME</td>
+<td>给容器命名为NAME</td>
 </tr>
 <tr class="even">
-<td></td>
-<td></td>
+<td>--restart=STRATEGY</td>
+<td>设定docker预设的重启的策略STRATEGY</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td></td>
+<td>-v, -volume HOST_PATH:CONTA_PATH</td>
+<td>挂载数据卷，将宿主机的HOST_PATH挂载到容器的CONTA_PATH</td>
+</tr>
+<tr class="even">
+<td>--network VNET_NAME</td>
+<td>嫁接网桥，将该容器嫁接到虚拟网桥VNET_NAME里</td>
+</tr>
+<tr class="odd">
+<td>--network-alias NAME</td>
+<td>设置容器在虚拟网桥下的别称</td>
+</tr>
+<tr class="even">
+<td>-p HOST_PORT:CONTA_PORT</td>
+<td>端口映射，将宿主机的HOST_PORT映射到容器的CONTA_PORT</td>
+</tr>
+<tr class="odd">
+<td>-d</td>
+<td>使容器在后台运行</td>
+</tr>
+<tr class="even">
+<td>-i</td>
+<td>以交互模式运行容器，通常与 -t 同时使用</td>
+</tr>
+<tr class="odd">
+<td>-t</td>
+<td>为容器重新分配一个伪输入终端，通常与 -i 同时使用</td>
 </tr>
 </tbody>
 </table>
+<ul>
+<li><code>-dti</code>命令是可以三个一起使用的，一般来说测试时用<code>it</code>，需要部署或在后台运行网页后端用<code>d</code>；</li>
+<li><code>--network-alias</code>是很好用的，在同一个局域网下，容器的虚拟ip地址可以由这个设置过的名字代替，使用者无需关心虚拟ip的变化；</li>
+<li>在用<code>--network</code>参数连接虚拟网桥时，需要先创建网桥。</li>
+</ul>
 <h4 id="查看容器">查看容器</h4>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看只在运行的容器</span></span><br><span class="line">docker ps</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看所有容器</span></span><br><span class="line">docker ps -a</span><br></pre></td></tr></table></figure>
+<h4 id="进入容器">进入容器</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it 容器名称|容器ID 命令</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这个<code>命令</code>是指打开容器终端的工具，Linux下一般都可以用<code>/bin/bash</code>。</li>
+</ul>
 <h4 id="停止容器">停止容器</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop [容器名称|容器ID]</span><br></pre></td></tr></table></figure>
-<h4 id="重启容器">重启容器</h4>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop [容器名称|容器ID]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop 容器名称|容器ID</span><br></pre></td></tr></table></figure>
+<h4 id="重启启动容器">重启/启动容器</h4>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">启动关闭的容器</span></span><br><span class="line">docker start 容器名称|容器ID</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">重启正在运行的容器</span></span><br><span class="line">docker restart 容器名称|容器ID</span><br></pre></td></tr></table></figure>
 <h3 id="虚拟网桥">虚拟网桥</h3>
+<p><strong>docker容器默认使用docker桥接网络。ip地址会自动分配，每个容器都是连接到网桥上，如果想让容器与宿主机同一网段的其他宿主机之间能访问，需在启动的时候将docker容器的某个端口映射到该宿主机的端口，其他宿主机连接宿主机的Ip和端口即可访问容器。</strong></p>
+<p>我们在将容器连接到网桥时，需要先创建一个虚拟网桥。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create NET_NAME</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建一个名为<code>NET_NAME</code>的虚拟网桥。</li>
+</ul>
+<p>然后就可以在<code>docker run</code>命令的参数里将容器连接至网桥了。</p>
+<h3 id="其他">其他</h3>
+<h4 id="查看底层信息">查看底层信息</h4>
+<p>docker提供了查看底层所有信息的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看容器的底层信息</span></span><br><span class="line">docker container inspect 容器名称|容器ID</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看虚拟网桥的底层信息</span></span><br><span class="line">docker network inspect 虚拟网桥名称</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看镜像的底层信息</span></span><br><span class="line">docker image inspect 镜像名称|镜像ID</span><br></pre></td></tr></table></figure>
 <h2 id="进阶阅读">进阶阅读</h2>
 <p>给出了其他网友对docker的理解：</p>
 <ul>
@@ -382,12 +437,12 @@ Docker的基础使用
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/15/101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="prev" title="101-数据的存储结构">
-      <i class="fa fa-chevron-left"></i> 101-数据的存储结构
+    <a href="/2022/07/15/1101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/" rel="prev" title="【数据结构-基础】数据的存储结构">
+      <i class="fa fa-chevron-left"></i> 【数据结构-基础】数据的存储结构
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/01/07/001-Docker%E5%AE%89%E8%A3%85/" rel="next" title="001-Docker安装">
-      001-Docker安装 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/01/07/2001-Docker%E5%AE%89%E8%A3%85/" rel="next" title="【安装】Docker安装">
+      【安装】Docker安装 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -449,7 +504,7 @@ Docker的基础使用
       <div class="post-toc-wrap sidebar-panel">
           <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">
 Docker的基础使用
-</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3docker"><span class="nav-number">1.1.</span> <span class="nav-text">如何理解Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E9%87%8C%E9%9D%A2%E7%9A%84%E9%83%A8%E5%88%86%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.1.</span> <span class="nav-text">Docker里面的部分术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E5%AF%B9docker%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用者对docker的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">Docker基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">获得镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">查看镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">查看容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">停止容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">重启容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E7%BD%91%E6%A1%A5"><span class="nav-number">1.2.3.</span> <span class="nav-text">虚拟网桥</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E9%98%85%E8%AF%BB"><span class="nav-number">1.3.</span> <span class="nav-text">进阶阅读</span></a></li></ol></li></ol></div>
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3docker"><span class="nav-number">1.1.</span> <span class="nav-text">如何理解Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#docker%E9%87%8C%E9%9D%A2%E7%9A%84%E9%83%A8%E5%88%86%E6%9C%AF%E8%AF%AD"><span class="nav-number">1.1.1.</span> <span class="nav-text">Docker里面的部分术语</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%80%85%E5%AF%B9docker%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.1.2.</span> <span class="nav-text">使用者对docker的理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.</span> <span class="nav-text">Docker基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.</span> <span class="nav-text">镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">获得镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">查看镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">容器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">运行容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">查看容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">进入容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">停止容器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">重启&#x2F;启动容器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E7%BD%91%E6%A1%A5"><span class="nav-number">1.2.3.</span> <span class="nav-text">虚拟网桥</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">1.2.4.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E5%BA%95%E5%B1%82%E4%BF%A1%E6%81%AF"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">查看底层信息</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9B%E9%98%B6%E9%98%85%E8%AF%BB"><span class="nav-number">1.3.</span> <span class="nav-text">进阶阅读</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
