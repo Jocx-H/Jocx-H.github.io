@@ -1,5 +1,9 @@
 https://jocx-h.top/index.html
-https://jocx-h.top/2023/01/08/2201Docker%E9%85%8D%E7%BD%AEMongoDB/
+https://jocx-h.top/2023/01/08/3203-Python%E5%8C%85%E2%80%94%E2%80%94numpy%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/
+https://jocx-h.top/2023/01/08/3201-Python%E5%8C%85%E2%80%94%E2%80%94pandas%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/
+https://jocx-h.top/2023/01/08/3101-Python%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/
+https://jocx-h.top/2023/01/08/3102-Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%BF%9B%E9%98%B6%E6%93%8D%E4%BD%9C/
+https://jocx-h.top/2023/01/08/2201-Docker%E9%85%8D%E7%BD%AEMongoDB/
 https://jocx-h.top/2022/07/14/1001-%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86/
 https://jocx-h.top/2022/07/15/1101-%E6%95%B0%E6%8D%AE%E7%9A%84%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84/
 https://jocx-h.top/2023/01/07/2001-Docker%E5%AE%89%E8%A3%85/
@@ -11,3 +15,4 @@ https://jocx-h.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/
 https://jocx-h.top/tags/%E7%AE%97%E6%B3%95/
 https://jocx-h.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95/
 https://jocx-h.top/categories/Docker/
+https://jocx-h.top/categories/Python/

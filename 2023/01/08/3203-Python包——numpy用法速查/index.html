@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jocx-h.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Python包——Numpy用法速查  数组 最基本的numpy元素，矩阵就相当于二维的数组。 数组属性 较为有用的属性如下：  shape：一个元组，需要第几维的大小需要取出。一维的也需要。 size：数组大小\(行\times 列\)。 dtype：数组的类型。可以是int、float、complex、bool。  实际上numpy 支持的数据类型比 Python 内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【语法】Python包——Numpy用法速查">
+<meta property="og:url" content="https://jocx-h.top/2023/01/08/3203-Python%E5%8C%85%E2%80%94%E2%80%94numpy%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/index.html">
+<meta property="og:site_name" content="Jocx&#39;s blog">
+<meta property="og:description" content="Python包——Numpy用法速查  数组 最基本的numpy元素，矩阵就相当于二维的数组。 数组属性 较为有用的属性如下：  shape：一个元组，需要第几维的大小需要取出。一维的也需要。 size：数组大小\(行\times 列\)。 dtype：数组的类型。可以是int、float、complex、bool。  实际上numpy 支持的数据类型比 Python 内">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-08T08:10:00.000Z">
+<meta property="article:modified_time" content="2023-01-17T06:14:04.053Z">
+<meta property="article:author" content="Jocx">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jocx-h.top/2023/01/08/3203-Python%E5%8C%85%E2%80%94%E2%80%94numpy%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>【语法】Python包——Numpy用法速查 | Jocx's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Jocx's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jocx's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">来了就先看看吧，没准有用呢？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jocx-h.top/2023/01/08/3203-Python%E5%8C%85%E2%80%94%E2%80%94numpy%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jocx">
+      <meta itemprop="description" content="开源 分享 共同进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jocx's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          【语法】Python包——Numpy用法速查
+        </h1>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-17 14:14:04" itemprop="dateModified" datetime="2023-01-17T14:14:04+08:00">2023-01-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index"><span itemprop="name">Python</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 align="center">
+Python包——Numpy用法速查
+</h1>
+<h2 id="数组">数组</h2>
+<p>最基本的numpy元素，矩阵就相当于二维的数组。</p>
+<h3 id="数组属性">数组属性</h3>
+<p>较为有用的属性如下：</p>
+<ul>
+<li><code>shape</code>：一个元组，需要第几维的大小需要取出。一维的也需要。</li>
+<li><code>size</code>：数组大小<span class="math inline">\(行\times 列\)</span>。</li>
+<li><code>dtype</code>：数组的类型。可以是int、float、complex、bool。
+<ul>
+<li>实际上numpy 支持的数据类型比 Python 内置的类型要多很多，大部分和C语言里面的对应，这里不一一说明。</li>
+</ul></li>
+<li><code>ndim</code>：数组的维度，矩阵就是二维，向量就是一维。</li>
+</ul>
+<h3 id="构造numpy数组">构造numpy数组</h3>
+<p><strong>注意</strong>：一下所有的_shape_如果是一个整数那就是一维。</p>
+<ul>
+<li><code>np.empty(shape, dtype)</code>：构造空的数组，shape应该是一个元组；dtype可选，是数组的类型。</li>
+<li><code>np.zeros(shape, dtype)</code>：同上。</li>
+<li><code>np.ones(shape, dtype)</code>：同上。</li>
+<li><code>np.asarray(a, dtype)</code>：a是任意形式的输入参数，可以是，列表, 列表的元组, 元组, 元组的元组, 元组的列表，多维数组。dtype同上。</li>
+<li><code>np.array(a, dtype)</code>：同上。</li>
+<li><code>numpy.arange(start, stop, step, dtype)</code>：根据 start 与 stop 指定的范围以及 step 设定的步长，生成一个 ndarray。</li>
+</ul>
+<h3 id="数组方法">数组方法</h3>
+<p><strong>注意</strong>：以下用<code>array</code>来代表numpy数组</p>
+<ul>
+<li><code>array.reshape(n1, n2, ..., order)</code>：表示重新构造数组的维度，有多少个参数就构造多少维，但注意<span class="math inline">\(array.size = n_1 \times n_2 \times...\)</span>
+<ul>
+<li><code>order</code>：'C' -- 按行，'F' -- 按列，'A' -- 原顺序，'K' -- 元素在内存中的出现顺序。</li>
+</ul></li>
+<li><code>array.flat</code>：以行遍历迭代数组里所有的元素。</li>
+<li><code>array.flatten(order)</code>：返回一份深拷贝。<code>order</code>同上。</li>
+<li><code>array.T</code>：数组的转置。</li>
+</ul>
+<h4 id="数组切片索引">数组切片/索引</h4>
+<p>数组的切片用于访问某个元素，或者是取用数组的部分内容。<em>切片和list一样</em>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]).reshape(<span class="number">4</span>, <span class="number">4</span>)  <span class="comment"># 这是一个4*4矩阵</span></span><br><span class="line">b = a[:, <span class="number">2</span>]  <span class="comment"># b是矩阵的第三列向量</span></span><br><span class="line">c = a[<span class="number">1</span>, <span class="number">3</span>]  <span class="comment"># c是矩阵的2行4列元素</span></span><br><span class="line">d = a[<span class="number">1</span>:, <span class="number">1</span>:<span class="number">2</span>]  <span class="comment"># d是一个3*2的矩阵</span></span><br></pre></td></tr></table></figure>
+<p><em>逗号数和维度有关，不同的维度之间用逗号隔开</em>。</p>
+<p><strong>布尔索引</strong></p>
+<p>带有逻辑操作的索引</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]).reshape(<span class="number">4</span>, <span class="number">4</span>)</span><br><span class="line">b = a[a &gt; <span class="number">5</span>]  <span class="comment"># b是a里面大于5的元素组成的一维数组</span></span><br><span class="line">c = a[~np.isnan(a)]  <span class="comment"># c是a里面所有不为nan元素的一维数组</span></span><br><span class="line">d = a[np.iscomplex(a)]  <span class="comment"># d是a里面所有复数的一维数组</span></span><br></pre></td></tr></table></figure>
+<h2 id="对数组数据处理">对数组数据处理</h2>
+<h3 id="非数学处理">非数学处理</h3>
+<p><strong>判断</strong></p>
+<ul>
+<li><code>np.isnan(array)</code>：返回布尔数组，有nan的地方就是True，其余为False。</li>
+<li><code>np.iscomplex(array)</code>：效果与上类似，判断复数的。</li>
+</ul>
+<p><strong>遍历</strong></p>
+<ul>
+<li><p><code>np.nditer(array, op_flags, flags, order)</code>：迭代数组，任何维都可以。返回一个迭代对象。</p>
+<ul>
+<li><code>order</code>：字符串，遍历顺序：'<strong>F</strong>'遍历列，'<strong>C</strong>'遍历行。</li>
+<li><code>op_flags</code>：字符串数组，表示读写权限。可以为__readwrite、writeonly__。</li>
+<li><code>flags</code>：字符串数组，一些常用的操作。常用有'<strong>external_loop</strong>'，给出的值是具有多个值的一维数组，而不是零维数组。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.arange(<span class="number">0</span>,<span class="number">60</span>,<span class="number">5</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> np.nditer(a, flags=[<span class="string">&#x27;external_loop&#x27;</span>], order=<span class="string">&#x27;F&#x27;</span>):</span><br><span class="line">    <span class="built_in">print</span>(x, end=<span class="string">&quot;, &quot;</span>)</span><br><span class="line"><span class="comment">#  结果是[ 0 20 40], [ 5 25 45], [10 30 50], [15 35 55], </span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="数学处理">数学处理</h3>
+<ul>
+<li><p><code>np.transpose(array, axes)</code>：更强大的转置，可以支持多维。<code>axes</code>整数元组，对应维度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.arange(<span class="number">18</span>).reshape(<span class="number">2</span>, <span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(a)</span><br><span class="line"><span class="built_in">print</span>(np.transpose(a, axes=(<span class="number">0</span>, <span class="number">2</span>, <span class="number">1</span>)))  <span class="comment"># 第2维和第3维转置后的数组</span></span><br></pre></td></tr></table></figure></li>
+<li><p><code>np.expand_dims(array, axis)</code>：升维，<code>axis</code><strong>用关键字给实参</strong>，是整数，表示要扩展第几维，从0开始，不可以跳维升级。</p></li>
+<li><p><code>np.squeeze(array, axis)</code>：降维，<code>axis</code>同上。维度必须是0才能降。</p></li>
+</ul>
+<p><strong>数组扩展</strong></p>
+<ul>
+<li><code>np.concatenate((array1, array2), axis)</code>：扩展数组，<code>array1、array2</code>为相同维度的数组。<code>axis</code>规范同上，表示沿着哪个维度进行拓展。<strong>注意</strong>：拓展方向的大小要一致。</li>
+<li><code>np.insert(arr, obj, values, axis)</code>：沿指定轴在对应位置插入数组，返回一个插入后的新数组。
+<ul>
+<li><code>obj</code>在其之前插入值的索引。</li>
+<li><code>values</code>要插入的值，要和对应维度大小相同。</li>
+<li><code>axis</code>：指定维度。</li>
+</ul></li>
+</ul>
+<h2 id="numpy数学">Numpy数学</h2>
+<p>numpy独自提供了一套数学属性和方法，可以不用引入math包</p>
+<h3 id="特殊值">特殊值</h3>
+<p><code>np.pi</code>：π</p>
+<h3 id="三角函数">三角函数</h3>
+<p>都是接纳数组返回对应数组的。<strong>入参都是数组</strong>。</p>
+<ul>
+<li><code>np.cos()、np.sin()、np.tan()、np.arccos()、np.arcsin()、np.arctan()</code></li>
+<li><code>np.degrees()</code>：弧度转角度的。角度转弧度直接除以<span class="math inline">\(2π\)</span>。</li>
+</ul>
+<h3 id="位数处理">位数处理</h3>
+<ul>
+<li><code>np.around(a,decimals)</code>：a是数组；decimals舍入的小数位数。 默认值为0。 如果为负，整数将四舍五入到小数点左侧的位置。</li>
+<li><code>np.floor(a)</code>：向下取整。</li>
+<li><code>np.ceil()</code>：向上取整。</li>
+</ul>
+<h3 id="算术计算">算术计算</h3>
+<p>数组必须具有相同的形状或符合数组广播规则。</p>
+<p>可以暂时理解为所有数组元素的对应运算。</p>
+<ul>
+<li><code>np.add(a1, a2)、np.substract(a1, a2)、np.multiply(a1, a2)、np.divide(a1, a2)</code>：加减乘除。可以用<code>+、-、*、/</code>来代替。</li>
+<li><code>np.power(a)、np.mod(a)</code>：取模和乘方，可以用<code>%、**</code>代替。</li>
+<li><code>np.reciprocal(a)</code>：求倒数。</li>
+</ul>
+<h3 id="统计方法">统计方法</h3>
+<h2 id="numpy线性代数">Numpy线性代数</h2>
+<h3 id="矩阵库">矩阵库</h3>
+<p>Numpy中的矩阵就是二维的数组。有些构造可以用<code>reshape</code>来完成，所以有些构造不过多赘述。</p>
+<p>Numpy中的矩阵操作要<code>import numpy.matlib</code>。</p>
+<h3 id="构造矩阵特殊">构造矩阵特殊</h3>
+<ul>
+<li><code>eye(n, M,k, dtype)</code>：对角线矩阵。<strong>n</strong>: 返回矩阵的行数；<strong>M</strong>: 返回矩阵的列数，默认为 n；<strong>k</strong>: 对角线的起始索引；<strong>dtype</strong>: 数据类型。</li>
+<li><code>rand(m, n)</code>：创建一个给定大小<span class="math inline">\(m\times n\)</span>的矩阵，数据是随机填充的。</li>
+</ul>
+<h3 id="线代运算函数">线代运算函数</h3>
+<p>这里只介绍他们的基本用法。</p>
+<ul>
+<li><code>np.dot(a, b)</code>：如果a,b是向量，就是內积；如果a，b是矩阵，就是矩阵积。</li>
+<li><code>np.vdot(a, b)</code>：数组展开计算內积。多维的展开成一维的计算內积。</li>
+<li><code>np.inner(a, b)</code>：向量a,b的內积计算。</li>
+<li><code>np.matmul(a, b)</code>：矩阵积。</li>
+<li><code>np.linalg.det(a)</code>：计算a的內积。</li>
+<li><code>np.linalg.solve(a)</code>：给出a矩阵形式的线性方程的解。</li>
+<li><code>np.linalg.inv(a)</code>：计算a的逆矩阵。a必须为方阵。</li>
+</ul>
+<h2 id="matplotlib">matplotlib</h2>
+<p>他是python的绘图库，可与numpy一起使用。也可以和图形工具包一起使用，如PyQt和wxPython。</p>
+<h3 id="线性平面图">线性平面图</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">plt.title(<span class="string">&#x27;str&#x27;</span>)  <span class="comment"># 设置表头，只能是英文</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;str&#x27;</span>) <span class="comment"># 设置x轴</span></span><br><span class="line">plt.ylabel(<span class="string">&#x27;str&#x27;</span>) <span class="comment"># 设置y轴</span></span><br><span class="line">plt.plot(x, y)    <span class="comment"># 画图，x和y是np一维数组</span></span><br><span class="line">plt.show()        <span class="comment"># 展示图片</span></span><br></pre></td></tr></table></figure>
+
+    </div>
+    <!-- 文章结束表示语-->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/08/3201-Python%E5%8C%85%E2%80%94%E2%80%94pandas%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/" rel="prev" title="【语法】Python包——Pandas内容速查">
+      <i class="fa fa-chevron-left"></i> 【语法】Python包——Pandas内容速查
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">
+Python包——Numpy用法速查
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">数组属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0numpy%E6%95%B0%E7%BB%84"><span class="nav-number">1.1.2.</span> <span class="nav-text">构造numpy数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.3.</span> <span class="nav-text">数组方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87%E7%B4%A2%E5%BC%95"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">数组切片&#x2F;索引</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%95%B0%E7%BB%84%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">对数组数据处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%95%B0%E5%AD%A6%E5%A4%84%E7%90%86"><span class="nav-number">1.2.1.</span> <span class="nav-text">非数学处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%A6%E5%A4%84%E7%90%86"><span class="nav-number">1.2.2.</span> <span class="nav-text">数学处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy%E6%95%B0%E5%AD%A6"><span class="nav-number">1.3.</span> <span class="nav-text">Numpy数学</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%80%BC"><span class="nav-number">1.3.1.</span> <span class="nav-text">特殊值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.2.</span> <span class="nav-text">三角函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E6%95%B0%E5%A4%84%E7%90%86"><span class="nav-number">1.3.3.</span> <span class="nav-text">位数处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E8%AE%A1%E7%AE%97"><span class="nav-number">1.3.4.</span> <span class="nav-text">算术计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.5.</span> <span class="nav-text">统计方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#numpy%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">Numpy线性代数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E5%BA%93"><span class="nav-number">1.4.1.</span> <span class="nav-text">矩阵库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E7%9F%A9%E9%98%B5%E7%89%B9%E6%AE%8A"><span class="nav-number">1.4.2.</span> <span class="nav-text">构造矩阵特殊</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E4%BB%A3%E8%BF%90%E7%AE%97%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.3.</span> <span class="nav-text">线代运算函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#matplotlib"><span class="nav-number">1.5.</span> <span class="nav-text">matplotlib</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E5%B9%B3%E9%9D%A2%E5%9B%BE"><span class="nav-number">1.5.1.</span> <span class="nav-text">线性平面图</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jocx"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jocx</p>
+  <div class="site-description" itemprop="description">开源 分享 共同进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jocx-H" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jocx-H" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jocx</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
