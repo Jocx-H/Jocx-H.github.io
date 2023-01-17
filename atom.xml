@@ -6,7 +6,7 @@
   <link href="https://jocx-h.top/atom.xml" rel="self"/>
   
   <link href="https://jocx-h.top/"/>
-  <updated>2023-01-17T06:14:04.053Z</updated>
+  <updated>2023-01-17T07:06:02.806Z</updated>
   <id>https://jocx-h.top/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>3204-Python包——matplotlib用法速查</title>
+    <link href="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/"/>
+    <id>https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/</id>
+    <published>2023-01-17T07:02:22.000Z</published>
+    <updated>2023-01-17T07:06:02.806Z</updated>
+    
+    <content type="html"><![CDATA[<h1 align="center">Python包——matplotlib用法速查</h1><h2 id="plot文件">plot文件</h2><p>画图的基本文件，需要</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure><h3 id="流程">流程</h3><figure><img src="https://pic3.zhimg.com/v2-cfe3dd3becbae38d3af4659b4ff1676a_r.jpg" alt="preview"><figcaption aria-hidden="true">preview</figcaption></figure><h3 id="创建画布和子图">创建画布和子图</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">fig = plt.figure(num=<span class="number">1</span>, figsize=(<span class="number">4</span>, <span class="number">4</span>))  <span class="comment"># 生成一个画布</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)  <span class="comment"># 生成子图，ax表示其中一个子图</span></span><br><span class="line">ax.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])  <span class="comment"># 在子图里面画</span></span><br><span class="line">plt.show()  <span class="comment"># 展示</span></span><br></pre></td></tr></table></figure><p><strong>注意</strong>：</p><ul><li><code>add_subplot(111)</code>指的是一行一列中的第一个。建议以后写成<code>add_subplot(m, n, k)</code>表示m行n列中的第k个。</li><li><code>figsize</code>是一个元组。</li><li>只有plt有<code>show</code>方法。</li></ul><h4 id="复杂子图的创建">复杂子图的创建</h4><h3 id="修饰图片">修饰图片</h3><p>__注意：__这个文件里面的所有的函数__针对子图__。</p><h4 id="全局设置字符样式">全局设置字符样式</h4><p>利用<code>rcParams</code>全局设置来配置样式：</p><ul><li><code>plt.rcParams[type] = vlaue</code><ul><li><code>type</code>包括了： <img src="/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165156862.png"></li><li><code>'font.family'</code>包括了： <img src="/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165252280.png"></li></ul></li></ul><h4 id="轴标签和标题文字设置">轴标签和标题文字设置</h4><ul><li><code>set_title(str, fontsize, backgroundcolor, fontweight, color, verticalalignment)</code>：设置标题<ul><li><code>str</code>内容。</li><li><code>fontsize</code>默认12，可选参数还有['xx-small', 'x-small', 'small', 'medium', 'large','x-large', 'xx-large']。</li><li><code>backgroundcolor</code>背景颜色，字符串，#号开头的6位16进制数。</li><li><code>fontweight</code>字体粗细，可选参数为['light', 'normal', 'medium', 'semibold', 'bold', 'heavy', 'black']。</li><li><code>color</code>字体颜色，同上。</li><li><code>verticalalignment</code>设置水平对齐方式 ，可选参数 ： 'center' , 'top' , 'bottom' ,'baseline'此参数可设置title与正图的位置 。</li><li><code>fontstyle</code>设置字体类型，可选参数[ 'normal' | 'italic' | 'oblique' ]，italic斜体，oblique倾斜。</li></ul></li><li><code>set_xlabel(str)</code></li><li><code>set_ylabel(str)</code></li></ul><h4 id="轴的设置">轴的设置</h4><p><strong>刻度和标签</strong></p><p>相应的y轴就把x换成y。</p><ul><li><code>set_xlim(a, b)</code>：设置x轴的__显示范围__。<code>a</code>和<code>b</code>都是数值。</li><li><code>set_xticks(array)</code>：设置x轴的__显示刻度__，<code>array</code>是要显示的刻度。</li><li><code>set_xticklabels(array, fontproperties, fontsize, color, rotation)</code>：设置x轴__标签的内容__。<ul><li><code>array</code>表示标签内容，可能第一个会显示不出来（因为array是从0开始显示的）。</li><li><code>fontproperties</code>是字体设置。</li><li><code>fontsize</code>是字号设置。</li><li><code>color</code>同上</li><li><code>rotation</code>是表示标签字符沿对应轴逆时针旋转的角度。</li></ul></li></ul><p><strong>注意</strong>：<code>set_xlim</code>和<code>set_xticks</code>在某些情况下是会有矛盾的，它们会优先执行最后的格式。</p><ul><li><code>tick_params()</code>可以装修轴上的__刻度线和轴标签__。参数如下<ul><li><strong>axis:</strong> 可选"x","y","both",默认"both"，分别代表，对x轴操作，对y轴操作，对两个轴都操作。</li><li><strong>direction:</strong> 可选 "in","out","inout"代表，刻度线显示在坐标轴里面，坐标轴外边，双边</li><li><strong>length:</strong> 刻度线长度，上面图里的刻度线长度，我设置的为6</li><li><strong>color:</strong> 刻度线颜色，上面图里的刻度线颜色，我设置的为“r”</li><li><strong>width：</strong> 刻度线宽度</li><li><strong>pad：</strong> 刻度线与刻度标签之间的间隔</li><li><strong>bottom, top, left, right</strong>四个参数对应四个边框，它们的取值为布尔类型，True 表示显示对应边框上的刻度线，False，代表不显示，默认True</li><li><strong>labelbottom, labeltop, labelleft, labelright,</strong>与上面四个对应，代表的是四个边框上的类标的设置，取值为布尔类型，True代表显示对应边框上的类标，False代表不显示。</li><li><strong>labelsize：</strong>类标大小的设置参数，可取浮点型数值，也可去"medium","large","small"</li><li><strong>labelrotation：</strong>旋转类标一定的角度，与在set_xticklabels（）中的参数rotation作用相同。</li></ul></li></ul><p><strong>轴的显示</strong></p><p>以下的local是字符串：'bottom'、'top'、'left'、'right'。</p><ul><li><code>spines[local].set_color(str)</code>：设置轴颜色。</li><li><code>spines[local].set_linewidth(3)</code>：设置轴的宽度。</li><li><code>spines[local].set_visible(bool)</code>：轴是否显示。</li></ul><h4 id="添加图例">添加图例</h4><ul><li><code>legend(str)</code>添加图例，参数如下：如果在图像里面已经添加了label参数，就不需要str了<ul><li><strong>loc:</strong>可取"best",1或者"upper right",2或"upper left",3或"lower left",4或"lower right",代表放不同位置</li><li><strong>fontsize</strong>： int或float或{‘xx-small’, ‘x-small’, ‘small’, ‘medium’, ‘large’, ‘x-large’, ‘xx-large’}，字体大小</li><li><strong>shadow</strong>: 是否为图例边框添加阴影</li><li><strong>labelspacing</strong>: 图例中条目之间的距离</li><li><strong>handlelength</strong>: 图例句柄的长度</li></ul></li></ul><h3 id="画图">画图</h3><p>以下方法可以用子图调用。</p><h4 id="折线图">折线图</h4><ul><li><code>plot(x, y, format, label)</code><ul><li><code>format</code>一般用字符串的组合'g-o'指定，表示颜色、风格、线格式。</li><li><code>label</code>图例</li></ul></li></ul><p>多次使用即可在同一张图上画出不同的折线。</p><h4 id="条形图">条形图</h4><p>https://zhuanlan.zhihu.com/p/139475633</p><h4 id="箱线图">箱线图</h4><p>https://zhuanlan.zhihu.com/p/139946399</p><h4 id="散点图">散点图</h4>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 align=&quot;center&quot;&gt;
+Python包——matplotlib用法速查
+&lt;/h1&gt;
+&lt;h2 id=&quot;plot文件&quot;&gt;plot文件&lt;/h2&gt;
+&lt;p&gt;画图的基本文件，需要&lt;/p&gt;
+&lt;figure class=&quot;highlight python&quot;&gt;&lt;table</summary>
+      
+    
+    
+    
+    
+    <category term="Python" scheme="https://jocx-h.top/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>【语法】Python包——Numpy用法速查</title>

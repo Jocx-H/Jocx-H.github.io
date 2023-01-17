@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jocx-h.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Python包——matplotlib用法速查  plot文件 画图的基本文件，需要 1import matplotlib.pyplot as plt 流程  preview  创建画布和子图 123456import matplotlib.pyplot as pltfig &#x3D; plt.figure(num&#x3D;1, figsize&#x3D;(4, 4))  # 生成一个画布ax &#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3204-Python包——matplotlib用法速查">
+<meta property="og:url" content="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/index.html">
+<meta property="og:site_name" content="Jocx&#39;s blog">
+<meta property="og:description" content="Python包——matplotlib用法速查  plot文件 画图的基本文件，需要 1import matplotlib.pyplot as plt 流程  preview  创建画布和子图 123456import matplotlib.pyplot as pltfig &#x3D; plt.figure(num&#x3D;1, figsize&#x3D;(4, 4))  # 生成一个画布ax &#x3D;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic3.zhimg.com/v2-cfe3dd3becbae38d3af4659b4ff1676a_r.jpg">
+<meta property="og:image" content="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165156862.png">
+<meta property="og:image" content="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165252280.png">
+<meta property="article:published_time" content="2023-01-17T07:02:22.000Z">
+<meta property="article:modified_time" content="2023-01-17T07:06:02.806Z">
+<meta property="article:author" content="Jocx">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic3.zhimg.com/v2-cfe3dd3becbae38d3af4659b4ff1676a_r.jpg">
+
+<link rel="canonical" href="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>3204-Python包——matplotlib用法速查 | Jocx's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Jocx's blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jocx's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">来了就先看看吧，没准有用呢？</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jocx-h.top/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jocx">
+      <meta itemprop="description" content="开源 分享 共同进步">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jocx's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3204-Python包——matplotlib用法速查
+        </h1>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-01-17 15:06:02" itemprop="dateModified" datetime="2023-01-17T15:06:02+08:00">2023-01-17</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 align="center">
+Python包——matplotlib用法速查
+</h1>
+<h2 id="plot文件">plot文件</h2>
+<p>画图的基本文件，需要</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<h3 id="流程">流程</h3>
+<figure>
+<img src="https://pic3.zhimg.com/v2-cfe3dd3becbae38d3af4659b4ff1676a_r.jpg" alt="preview"><figcaption aria-hidden="true">preview</figcaption>
+</figure>
+<h3 id="创建画布和子图">创建画布和子图</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">fig = plt.figure(num=<span class="number">1</span>, figsize=(<span class="number">4</span>, <span class="number">4</span>))  <span class="comment"># 生成一个画布</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)  <span class="comment"># 生成子图，ax表示其中一个子图</span></span><br><span class="line">ax.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])  <span class="comment"># 在子图里面画</span></span><br><span class="line">plt.show()  <span class="comment"># 展示</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：</p>
+<ul>
+<li><code>add_subplot(111)</code>指的是一行一列中的第一个。建议以后写成<code>add_subplot(m, n, k)</code>表示m行n列中的第k个。</li>
+<li><code>figsize</code>是一个元组。</li>
+<li>只有plt有<code>show</code>方法。</li>
+</ul>
+<h4 id="复杂子图的创建">复杂子图的创建</h4>
+<h3 id="修饰图片">修饰图片</h3>
+<p>__注意：__这个文件里面的所有的函数__针对子图__。</p>
+<h4 id="全局设置字符样式">全局设置字符样式</h4>
+<p>利用<code>rcParams</code>全局设置来配置样式：</p>
+<ul>
+<li><code>plt.rcParams[type] = vlaue</code>
+<ul>
+<li><code>type</code>包括了： <img src="/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165156862.png"></li>
+<li><code>'font.family'</code>包括了： <img src="/2023/01/17/3204-Python%E5%8C%85%E2%80%94%E2%80%94matplotlib%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/image-20211026165252280.png"></li>
+</ul></li>
+</ul>
+<h4 id="轴标签和标题文字设置">轴标签和标题文字设置</h4>
+<ul>
+<li><code>set_title(str, fontsize, backgroundcolor, fontweight, color, verticalalignment)</code>：设置标题
+<ul>
+<li><code>str</code>内容。</li>
+<li><code>fontsize</code>默认12，可选参数还有['xx-small', 'x-small', 'small', 'medium', 'large','x-large', 'xx-large']。</li>
+<li><code>backgroundcolor</code>背景颜色，字符串，#号开头的6位16进制数。</li>
+<li><code>fontweight</code>字体粗细，可选参数为['light', 'normal', 'medium', 'semibold', 'bold', 'heavy', 'black']。</li>
+<li><code>color</code>字体颜色，同上。</li>
+<li><code>verticalalignment</code>设置水平对齐方式 ，可选参数 ： 'center' , 'top' , 'bottom' ,'baseline'此参数可设置title与正图的位置 。</li>
+<li><code>fontstyle</code>设置字体类型，可选参数[ 'normal' | 'italic' | 'oblique' ]，italic斜体，oblique倾斜。</li>
+</ul></li>
+<li><code>set_xlabel(str)</code></li>
+<li><code>set_ylabel(str)</code></li>
+</ul>
+<h4 id="轴的设置">轴的设置</h4>
+<p><strong>刻度和标签</strong></p>
+<p>相应的y轴就把x换成y。</p>
+<ul>
+<li><code>set_xlim(a, b)</code>：设置x轴的__显示范围__。<code>a</code>和<code>b</code>都是数值。</li>
+<li><code>set_xticks(array)</code>：设置x轴的__显示刻度__，<code>array</code>是要显示的刻度。</li>
+<li><code>set_xticklabels(array, fontproperties, fontsize, color, rotation)</code>：设置x轴__标签的内容__。
+<ul>
+<li><code>array</code>表示标签内容，可能第一个会显示不出来（因为array是从0开始显示的）。</li>
+<li><code>fontproperties</code>是字体设置。</li>
+<li><code>fontsize</code>是字号设置。</li>
+<li><code>color</code>同上</li>
+<li><code>rotation</code>是表示标签字符沿对应轴逆时针旋转的角度。</li>
+</ul></li>
+</ul>
+<p><strong>注意</strong>：<code>set_xlim</code>和<code>set_xticks</code>在某些情况下是会有矛盾的，它们会优先执行最后的格式。</p>
+<ul>
+<li><code>tick_params()</code>可以装修轴上的__刻度线和轴标签__。参数如下
+<ul>
+<li><strong>axis:</strong> 可选"x","y","both",默认"both"，分别代表，对x轴操作，对y轴操作，对两个轴都操作。</li>
+<li><strong>direction:</strong> 可选 "in","out","inout"代表，刻度线显示在坐标轴里面，坐标轴外边，双边</li>
+<li><strong>length:</strong> 刻度线长度，上面图里的刻度线长度，我设置的为6</li>
+<li><strong>color:</strong> 刻度线颜色，上面图里的刻度线颜色，我设置的为“r”</li>
+<li><strong>width：</strong> 刻度线宽度</li>
+<li><strong>pad：</strong> 刻度线与刻度标签之间的间隔</li>
+<li><strong>bottom, top, left, right</strong>四个参数对应四个边框，它们的取值为布尔类型，True 表示显示对应边框上的刻度线，False，代表不显示，默认True</li>
+<li><strong>labelbottom, labeltop, labelleft, labelright,</strong>与上面四个对应，代表的是四个边框上的类标的设置，取值为布尔类型，True代表显示对应边框上的类标，False代表不显示。</li>
+<li><strong>labelsize：</strong>类标大小的设置参数，可取浮点型数值，也可去"medium","large","small"</li>
+<li><strong>labelrotation：</strong>旋转类标一定的角度，与在set_xticklabels（）中的参数rotation作用相同。</li>
+</ul></li>
+</ul>
+<p><strong>轴的显示</strong></p>
+<p>以下的local是字符串：'bottom'、'top'、'left'、'right'。</p>
+<ul>
+<li><code>spines[local].set_color(str)</code>：设置轴颜色。</li>
+<li><code>spines[local].set_linewidth(3)</code>：设置轴的宽度。</li>
+<li><code>spines[local].set_visible(bool)</code>：轴是否显示。</li>
+</ul>
+<h4 id="添加图例">添加图例</h4>
+<ul>
+<li><code>legend(str)</code>添加图例，参数如下：如果在图像里面已经添加了label参数，就不需要str了
+<ul>
+<li><strong>loc:</strong>可取"best",1或者"upper right",2或"upper left",3或"lower left",4或"lower right",代表放不同位置</li>
+<li><strong>fontsize</strong>： int或float或{‘xx-small’, ‘x-small’, ‘small’, ‘medium’, ‘large’, ‘x-large’, ‘xx-large’}，字体大小</li>
+<li><strong>shadow</strong>: 是否为图例边框添加阴影</li>
+<li><strong>labelspacing</strong>: 图例中条目之间的距离</li>
+<li><strong>handlelength</strong>: 图例句柄的长度</li>
+</ul></li>
+</ul>
+<h3 id="画图">画图</h3>
+<p>以下方法可以用子图调用。</p>
+<h4 id="折线图">折线图</h4>
+<ul>
+<li><code>plot(x, y, format, label)</code>
+<ul>
+<li><code>format</code>一般用字符串的组合'g-o'指定，表示颜色、风格、线格式。</li>
+<li><code>label</code>图例</li>
+</ul></li>
+</ul>
+<p>多次使用即可在同一张图上画出不同的折线。</p>
+<h4 id="条形图">条形图</h4>
+<p>https://zhuanlan.zhihu.com/p/139475633</p>
+<h4 id="箱线图">箱线图</h4>
+<p>https://zhuanlan.zhihu.com/p/139946399</p>
+<h4 id="散点图">散点图</h4>
+
+    </div>
+    <!-- 文章结束表示语-->
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束 感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Python/" rel="tag"><i class="fa fa-tag"></i> Python</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/01/08/3203-Python%E5%8C%85%E2%80%94%E2%80%94numpy%E7%94%A8%E6%B3%95%E9%80%9F%E6%9F%A5/" rel="prev" title="【语法】Python包——Numpy用法速查">
+      <i class="fa fa-chevron-left"></i> 【语法】Python包——Numpy用法速查
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text">
+Python包——matplotlib用法速查
+</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#plot%E6%96%87%E4%BB%B6"><span class="nav-number">1.1.</span> <span class="nav-text">plot文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%BB%E5%B8%83%E5%92%8C%E5%AD%90%E5%9B%BE"><span class="nav-number">1.1.2.</span> <span class="nav-text">创建画布和子图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%AD%90%E5%9B%BE%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">复杂子图的创建</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E5%9B%BE%E7%89%87"><span class="nav-number">1.1.3.</span> <span class="nav-text">修饰图片</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E8%AE%BE%E7%BD%AE%E5%AD%97%E7%AC%A6%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">全局设置字符样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%B4%E6%A0%87%E7%AD%BE%E5%92%8C%E6%A0%87%E9%A2%98%E6%96%87%E5%AD%97%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">轴标签和标题文字设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BD%B4%E7%9A%84%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">轴的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%BE%E4%BE%8B"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">添加图例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%BB%E5%9B%BE"><span class="nav-number">1.1.4.</span> <span class="nav-text">画图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">折线图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9D%A1%E5%BD%A2%E5%9B%BE"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">条形图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%B1%E7%BA%BF%E5%9B%BE"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">箱线图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE"><span class="nav-number">1.1.4.4.</span> <span class="nav-text">散点图</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jocx"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jocx</p>
+  <div class="site-description" itemprop="description">开源 分享 共同进步</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jocx-H" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jocx-H" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jocx</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+</body>
+</html>
